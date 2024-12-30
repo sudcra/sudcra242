@@ -1,0 +1,3 @@
+update secciones set rut_docente = t_reenvioinformesseccion.nombre_destinatario
+from t_reenvioinformesseccion
+where secciones.id_seccion = t_reenvioinformesseccion.id_seccion

@@ -1,0 +1,18 @@
+SELECT matricula_eval_itemresp2.id_matricula_eval,
+    item_uc.id_medida,
+    item_uc.orden,
+    sum(matricula_eval_itemresp2.puntaje_alum) AS puntaje_total_obtenido,
+    sum(matricula_eval_itemresp2.puntaje_alum) / sum(item.item_puntaje) AS logro_obtenido,
+    trunc(sum(matricula_eval_itemresp2.puntaje_alum) / sum(item.item_puntaje) + 0.301)::double precision * (10::double precision ^ (item_uc.orden - 1)::double precision) AS cod_logro,
+    count(matricula_eval_itemresp2.id_mei) AS count,
+    eval.num_prueba
+   FROM item
+     JOIN (matricula_eval_itemresp2
+     JOIN item_respuesta ON matricula_eval_itemresp2.id_itemresp::text = item_respuesta.id_itemresp::text) ON item.id_item::text = item_respuesta.id_item::text
+     JOIN matricula_eval ON matricula_eval.id_matricula_eval::text = matricula_eval_itemresp2.id_matricula_eval::text
+     JOIN eval ON eval.id_eval::text = matricula_eval.id_eval::text
+     JOIN item_uc ON item.id_item::text = item_uc.id_item::text
+  GROUP BY item_uc.orden, matricula_eval_itemresp2.id_matricula_eval, item_uc.id_medida, eval.num_prueba
+ HAVING NOT (matricula_eval_itemresp2.id_matricula_eval::text IN ( SELECT calificaciones_obtenidas.id_matricula_eval
+           FROM calificaciones_obtenidas))
+  ORDER BY matricula_eval_itemresp2.id_matricula_eval;

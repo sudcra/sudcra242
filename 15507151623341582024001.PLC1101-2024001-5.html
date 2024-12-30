@@ -1,0 +1,3186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Análisis académico de resultados :: SUDCRA</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="with=device-width, initial-scale=1.0">
+        <!--iconos-->
+        <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous" ></script>
+        <!--boostrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+      
+        <!--chartjs y pluggins-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+        
+        <!-- Iconos -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: 'Lato', 'Poppins', sans-serif;
+                font-weight: 400;
+                font-size: 13px;
+                color: rgb(42, 75, 90);
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                background: #F3F4F4;
+            }
+
+            main {
+                width: 60%;
+                min-width: 350px;
+                max-width: 1000px;
+                margin: auto;
+                background: #fff;
+            }
+
+            /* TABLA */
+            table{
+                border-collapse: collapse;
+                margin: 5px;
+            }
+
+            thead td{
+                text-transform: uppercase;
+                text-align: start;
+                padding: 15px;
+            }
+
+            tbody tr td{
+                padding: 5px 10px;
+                text-align: left;
+                width: fit-content;
+                background-color: #fff;
+            }
+
+            /* ROW */
+            .row{
+                max-width: 1000px;
+                display: flex;
+                justify-content: space-between;
+                --bs-gutter-x:0;
+            }
+
+            .comentarios p {
+                background-color: rgb(207, 244, 252);
+                border: 1px solid rgb(182, 239, 251);
+                color: rgb(5, 81, 96);
+                border-radius: 0.25rem;
+                margin: 10px 20px 10px 20px;
+            }
+            /* BLOQUE */
+            
+            .bloque{
+                max-width: 1000px;
+                margin: auto;
+                margin-top: 5%;
+                text-align: center;
+            }
+
+            .bloque h4{
+                color: rgb(138, 138, 138);
+                text-align: left;
+                font-size: 18px;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            p{
+                color: #777;
+                font-size: 14px;
+                font-weight: 300;
+                line-height: 22px;
+                padding: 10px;
+            }
+
+            .bloque-col-50{
+                flex-basis: 50%;
+                border-radius: 5px;
+                position: relative;
+                overflow: hidden;
+                height: 300px;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+
+            .bloque-col-100{
+                flex-basis: 100%;
+                border-radius: 5px;
+                position: relative;
+                overflow: hidden;
+                height: auto;
+                box-sizing: border-box;
+            }
+
+            .bloque-col-1{
+                flex-basis: 32%;
+                border-radius: 5px;
+                margin-bottom: 30px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .bloque-col img{
+                width: 100%;
+                display: block;
+            }
+
+            .bloque-col p {
+                position: absolute;
+                bottom: 0;
+                color: #ffffff;
+                padding: 20px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .lamina-columna{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .lamina-1 {
+                background: #fff;
+                border-radius: 0.25rem;
+                padding: 10px;
+                margin: 10px;
+                box-shadow: 0px 3px 2px 0px #cccccc;
+                line-height: 15.5px;
+                border: 1px solid rgba(125, 172, 168, 0.3);
+                transition: 0.5s ease;
+            }
+
+            .lamina-1:hover{
+                border: 1px solid rgb(248, 135, 126);
+                box-shadow: 0px 3px 12px 0px #cccccc;
+            }
+
+            .lamina-grafico {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 0.25rem;
+            margin: 10px;
+            height: 264px;
+            box-sizing: border-box;
+            box-shadow: 0px 3px 2px 0px #cccccc;
+            overflow: hidden; /* Evita el desbordamiento de los elementos hijos */
+            border: 1px solid rgba(125, 172, 168, 0.3);
+            transition: 0.5s ease;
+            position: relative;
+            }
+
+            .lamina-grafico:hover{
+                border: 1px solid rgb(248, 135, 126);
+                box-shadow: 0px 3px 12px 0px #cccccc;
+            }
+
+            .lamina-grafico .header {
+                padding: 5px;
+                padding-left: 10px;
+                position: absolute;
+                top: 0;
+                justify-content: space-between;
+                width: 100%;
+                box-sizing: border-box;
+                background-color: rgba(243, 245, 244,0.5);
+            }
+
+            .lamina-grafico .header .titulo {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .lamina-grafico .header .control {
+                background-color: blue;
+            }
+
+            .lamina-grafico .header .titulo h4 {
+                text-align: left;
+                font-size: 14px;
+                margin: 0;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                font-weight: 600;
+                padding-left: 10px;
+                background-color: transparent;
+            }
+
+            .lamina-grafico .header .titulo p {
+                text-align: left;
+                color: rgb(176, 176, 176);
+                font-weight: 300;
+                line-height: 16px;
+                margin: 0;
+                padding: 0;
+                padding-left: 10px;
+                background-color: transparent;
+            }
+
+            .lamina-grafico canvas {
+                position: absolute;
+                top: 80px;
+                margin: 0px 60px 0px 60px; /* reducir posteriormente con media query */
+                background: transparent;
+            }
+
+            .lamina-grafico-2{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                background: #fff;
+                border-radius: 5px;
+                margin: 10px 20px 10px 20px;
+                box-sizing: border-box;
+                box-shadow: 0px 3px 2px 0px #cccccc;
+                background: transparent;
+                border: 1px solid transparent;
+                transition: 0.5s ease;
+            }
+
+            .lamina-grafico-2:hover{
+                border: 1px solid rgb(248, 135, 126);
+                box-shadow: 0px 3px 12px 0px #cccccc;
+                background: transparent;
+            }
+
+            .lamina-grafico-2 .header{
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                
+            }
+
+            .lamina-grafico-2 .header .titulo {
+                display: flex;
+                flex-direction: column;
+                padding-right: 10px;
+            }
+
+            .lamina-grafico-2 .header .control {
+                display: flex;
+                justify-content: center;
+                width: auto;
+                padding: 5px;
+            }
+            .lamina-grafico-2 .header .titulo h4 {
+                text-align: left;
+                font-size: 14px;
+                margin: 0;
+                margin-top: 5px;
+                margin-bottom: 10px;
+                font-weight: 600;
+                padding-left: 30px;
+                background-color: transparent;
+            }
+            .lamina-grafico-2 .header .titulo p {
+                text-align: left;
+                color: rgb(176, 176, 176);
+                font-size: 13px;
+                font-weight: 300;
+                line-height: 16px;
+                margin: 0;
+                padding: 0;
+                padding-left: 30px;
+                background-color: transparent;
+            }
+
+            .lamina-grafico-2 canvas{
+                background: transparent;                
+            }
+
+            .dim-grafico-1 {
+                padding: 0;
+            }
+
+            .dim-grafico-2 {
+                padding: 0;
+            }
+
+            .boton-alternancia {
+                height: 25px; 
+                font-size: 11px; 
+                padding: 0 8px;
+            }
+
+            @media (max-width: 427px) {
+                #nom_alumno {
+                    margin-top: 40px !important;
+                }
+
+                #bloque-titulo-1 {
+                    margin-top: 0px !important;
+                }
+
+                .header .titulo {
+                    padding-inline: 20px !important;
+                    padding-top: 20px !important;
+                }
+                /* Grafico 1 */
+                #histogramChart {
+                    margin-inline: 30px !important;
+                    margin-top: 35px !important;
+                }
+
+                #histogramChart_logro {
+                    margin-inline: 30px !important;
+                    margin-top: 70px !important;
+                }   
+
+                #contenedor_puntaje {
+                    padding: 5px 0 5px 0 !important;
+                }
+
+                #desempeno {
+                    font-size: 13px !important;
+                }
+
+                .lamina-grafico {
+                    height: 350px !important;
+                }
+
+                /* Algunos cambios generales */
+                .lamina-grafico-2 {
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                #seccion_aprendizajes_subtitulo {
+                    padding: 0 !important;
+                    text-align: left;
+                    text-align: justify !important;
+                }
+
+                .titulo p {
+                    padding: 0 !important;
+                    text-align: justify !important;
+                }
+
+                .lamina-grafico-2 .header .titulo {
+                    padding-inline: 20px !important;
+                }
+
+                .lamina-grafico-2 .header .titulo h4 {
+                    padding: 0 !important;
+                    text-align: left !important;
+                }
+
+                .lamina-grafico-2 .header .titulo p {
+                    font-size: 14px !important;
+                }
+
+                #grafico3-boton {
+                    margin: 10px 0 10px 0 !important;
+                    padding-inline: 60px;
+                }
+
+                .contenedor-acordeon{
+                    margin-inline: auto !important;
+                    min-width: 280px !important;
+                   
+                }
+                
+                .tabla-aprendizaje table, th, td {
+                    border: none !important;
+                }
+
+                .tabla-aprendizaje td {
+                    text-align: justify !important;
+                }
+
+                .aprendizaje-contenedor h5 {
+                    padding: 0 !important;
+                    text-align: center !important;
+                }
+
+                #tabla_ru {
+                    display: block !important; 
+                    overflow-x: auto !important; 
+                    width: 100% !important; 
+                    margin: 0 auto !important;
+                }
+                
+            }
+
+            @media (min-width: 428px) and (max-width: 454px)  {
+                *{
+                    font-size: 16px;
+                }
+
+                main {
+                    width: 100%;
+                }
+
+                .row {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .titulo-principal h5 {
+                    text-align: center !important;
+                }
+
+                #nom_alumno {
+                    margin-top: 40px !important;
+                }
+
+                #bloque-titulo-1 {
+                    margin-top: 0px !important;
+                }
+
+                .bloque h4 {
+                    text-align: center !important;
+                }
+
+
+                /* Grafico 1 */
+                #histogramChart {
+                    margin-inline: 40px !important;
+                    margin-top: 40px !important;
+                }
+
+                #histogramChart_logro {
+                    margin-inline: 40px !important;
+                    margin-top: 40px !important;
+                }
+
+                .lamina-grafico {
+                    height: 300px !important;
+                }
+
+                .lamina-grafico {
+                    height: 350px !important;
+                }
+
+                .lamina-grafico-2 {
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+
+                #seccion_aprendizajes_subtitulo {
+                    padding: 0;
+                    text-align: left;
+                }
+
+                /* Grafico 2*/
+                .dim-grafico-2 {
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .dim-grafico-2 canvas {
+                    padding: 0;
+                    width: 100%;
+                    margin: 20px 10% 20px 10%;
+                }
+
+                .header {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .header .titulo h4 {
+                    font-size: 16px !important;
+                    padding-left: 0 !important;
+                }
+
+                .lamina-grafico .header .titulo p {
+                    margin-bottom: 10px;
+                    font-size: 14px !important;
+                    padding-inline: 5% !important;
+                    display: flex;
+                    text-align: justify !important;
+                }
+
+                /* ACORDEON APRENDIZAJES */
+                .contenedor-acordeon {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .acordeon-body {
+                    padding: 0;
+                }
+
+                .accordion-button{
+                    width: 100%;
+                }
+
+                .acordeon-body {
+                    padding-inline: 10px;
+                }
+
+                /* Tabla */
+                .lamina-tabla {
+                    margin-inline: 0 !important;
+                    padding-inline: 5px !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    margin-top: 0 !important;
+                }
+
+                .lamina-tabla .titulo {
+                    margin-bottom: 0;
+                }
+
+                .contenedor-ancho {
+                    margin-inline: 0 !important;
+                    padding-inline: 0 !important;
+                }
+
+                .input-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .titulo{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                }
+
+                #tabla-menu {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    padding-inline: 10px !important;
+                }
+
+                .tabla-menu-controles {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center !important;
+                    text-align: center !important;
+                    align-items: center !important;
+                    width: 100%;
+                    gap: 10 px;
+                }
+
+                
+                #tabla-controles-2 {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+
+                .boton-comun-1 {
+                    height: 30px !important;
+                    width: 100px !important;
+                    padding: 4px 12px !important;
+                }
+
+                .boton-comun-2 {
+                    height: 30px !important;
+                    width: 100px !important;
+                    padding: 4px 12px !important;
+                }
+
+                #tabla-busqueda {
+                    height: 40px !important;
+                    width: 100%;
+                }
+
+                .footer-contenedor {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                .footer-contenedor .footer-left {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+
+                .footer-contenedor .footer-right {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+
+            @media (min-width: 455px) and (max-width: 697px) {
+                *{
+                    font-size: 16px;
+                }
+
+                main {
+                    width: 100%;
+                }
+
+                .row {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .titulo-principal h5 {
+                    text-align: center !important;
+                }
+
+                .bloque h4 {
+                    text-align: center !important;
+                }
+
+                .lamina-grafico {
+                    height: 450px !important;
+                }
+
+                .dim-grafico-1 {
+                    min-height: 150px !important;
+                    max-height: 150px !important;
+                }
+
+                /* Grafico 1 */
+                #histogramChart {
+                    margin-inline: 10%;
+                    margin-top: 20px !important;
+                }
+
+                #histogramChart_logro {
+                    margin-inline: 10%;
+                    margin-top: 20px !important;
+                }
+
+                .lamina-grafico {
+                    height: 350px !important;
+                }
+
+                /* Grafico 2*/
+                .dim-grafico-2 {
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .dim-grafico-2 canvas {
+                    padding: 0;
+                    width: 100%;
+                    margin: 20px 10% 20px 10%;
+                }
+
+                .header {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .header .titulo {
+                    margin-bottom: 10px;
+                }
+                .header .titulo h4 {
+                    font-size: 16px !important;
+                    padding-left: 0 !important;
+                }
+
+                .header .titulo p {
+                    font-size: 16px !important;
+                    padding-inline: 5% !important;
+                    display: flex;
+                    text-align: justify !important;
+                }
+
+                /* ACORDEON APRENDIZAJES */
+                .contenedor-acordeon {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .acordeon-body {
+                    padding: 0;
+                }
+
+                .accordion-button{
+                    width: 100%;
+                }
+
+                .acordeon-body {
+                    padding-inline: 10px;
+                }
+                
+                /* Tabla */
+                .lamina-tabla {
+                    margin-inline: 0 !important;
+                    padding-inline: 5px !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    margin-top: 0 !important;
+                }
+
+                .lamina-tabla .titulo {
+                    margin-bottom: 0;
+                }
+
+                .contenedor-ancho {
+                    margin-inline: 0 !important;
+                    padding-inline: 0 !important;
+                }
+
+                .input-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .titulo{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                }
+
+                #tabla-menu {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    padding-inline: 10px !important;
+                }
+
+                .tabla-menu-controles {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center !important;
+                    text-align: center !important;
+                    align-items: center !important;
+                    width: 100%;
+                    gap: 10 px;
+                }
+
+                
+                #tabla-controles-2 {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+
+                .boton-comun-1 {
+                    height: 30px !important;
+                    width: 100px !important;
+                    padding: 4px 12px !important;
+                }
+
+                .boton-comun-2 {
+                    height: 30px !important;
+                    width: 100px !important;
+                    padding: 4px 12px !important;
+                }
+
+                #tabla-busqueda {
+                    height: 40px !important;
+                    width: 100%;
+                }
+
+                .footer-contenedor {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                .footer-contenedor .footer-left {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+
+                .footer-contenedor .footer-right {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center;
+                    text-align: center;
+                }
+
+            }
+
+            @media (min-width: 698px) and (max-width: 804px) {
+                *{
+                    font-size: 16px;
+                }
+
+                main {
+                    width: 100%;
+                }
+
+                .row {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .titulo-principal h5 {
+                    text-align: center !important;
+                }
+
+                .bloque h4 {
+                    text-align: center !important;
+                }
+
+                .lamina-grafico {
+                    height: 450px !important;
+                }
+
+                .dim-grafico-1 {
+                    min-height: 150px !important;
+                    max-height: 150px !important;
+                }
+
+                /* Grafico 1 */
+                #histogramChart {
+                    margin-inline: 20%;
+                    margin-top: 20px !important;
+                }
+
+                #histogramChart_logro {
+                    margin-inline: 20%;
+                    margin-top: 20px !important;
+                }
+
+                .lamina-grafico {
+                    height: 350px !important;
+                }
+
+                /* Grafico 2*/
+                .dim-grafico-2 {
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .dim-grafico-2 canvas {
+                    padding: 0;
+                    width: 100%;
+                    margin: 20px 10% 20px 10%;
+                }
+
+                .header {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .header .titulo {
+                    margin-bottom: 10px;
+                }
+                .header .titulo h4 {
+                    font-size: 16px !important;
+                    padding-left: 0 !important;
+                }
+
+                .header .titulo p {
+                    font-size: 16px !important;
+                    padding-inline: 5% !important;
+                    display: flex;
+                    text-align: justify !important;
+                }
+
+                /* ACORDEON APRENDIZAJES */
+                .contenedor-acordeon {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+                .acordeon-body {
+                    padding: 0;
+                }
+
+                .accordion-button{
+                    width: 100%;
+                }
+
+                .acordeon-body {
+                    padding-inline: 10px;
+                }
+                
+                /* Tabla */
+                .lamina-tabla {
+                    margin-inline: 0 !important;
+                    padding-inline: 5px !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    margin-top: 0 !important;
+                }
+
+                .lamina-tabla .titulo {
+                    margin-bottom: 0;
+                }
+
+                .contenedor-ancho {
+                    margin-inline: 0 !important;
+                    padding-inline: 0 !important;
+                }
+
+                .input-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .titulo{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                }
+
+                #tabla-menu {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    padding-inline: 10px !important;
+                }
+
+                .tabla-menu-controles {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center !important;
+                    text-align: center !important;
+                    align-items: center !important;
+                    width: 100%;
+                    gap: 10 px;
+                }
+
+                
+                #tabla-controles-2 {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+
+                .boton-comun-1 {
+                    height: 30px !important;
+                    width: 100px !important;
+                    padding: 4px 12px !important;
+                }
+
+                .boton-comun-2 {
+                    height: 30px !important;
+                    width: 100px !important;
+                    padding: 4px 12px !important;
+                }
+
+                #tabla-busqueda {
+                    height: 40px !important;
+                    width: 100%;
+                }
+
+                .footer-contenedor {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                .footer-contenedor .footer-left {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+
+                .footer-contenedor .footer-right {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center;
+                    text-align: center;
+                }
+
+            }
+
+            @media (min-width: 805px) and (max-width: 1360px) {
+
+                main {
+                    min-width: 805px;
+                    max-width: 805px;
+                }
+
+                /* Grafico 1 */
+                #histogramChart {
+                    margin-top: 40px !important;
+                }
+
+                #histogramChart_logro {
+                    margin-top: 40px !important;
+                }
+
+                /* Grafico 2*/
+                .dim-grafico-2 {
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .dim-grafico-2 canvas {
+                    padding: 0;
+                    width: 100%;
+                    margin: 20px 20% 20px 20%;
+                }
+
+                .header {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .header .titulo {
+                    margin-bottom: 10px;
+                }
+
+                .header .titulo p {
+                    padding-left: 0;
+                    display: flex;
+                    text-align: justify;
+                }
+
+                .footer-contenedor .footer-left {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+
+            }
+
+            @media (min-width: 1361px) and (max-width: 1500px) {
+                
+                #histogramChart {
+                    margin-top: 30px !important;
+                    
+                    
+                }
+
+                #histogramChart_logro {
+                    margin-top: 30px !important;
+                    
+                    
+                }
+
+                /* Grafico 2*/
+                .dim-grafico-2 {
+                    padding: 30px 200px;
+                }
+
+                /* Tabla */
+                #tabla-menu {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                .tabla-menu-controles {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                #tabla-controles-1 {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                #tabla-controles-2 {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                .footer-contenedor .footer-left {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+            }
+
+            @media (min-width: 1501px) and (max-width: 2500px) {
+                
+                #histogramChart {
+                    margin-top: 20px !important;
+                    padding: 10px !important;
+                }
+
+                #histogramChart_logro {
+                    margin-top: 20px !important;
+                    padding: 10px !important;
+                }
+
+                /* Grafico 2*/
+                .dim-grafico-2 {
+                    padding: 30px 250px;
+                }
+
+                /* Tabla */
+                #tabla-menu {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                .tabla-menu-controles {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                #tabla-controles-1 {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                #tabla-controles-2 {
+                    display: flex;
+                    flex-direction: row;
+                }
+
+                .footer-contenedor .footer-left {
+                    width: 80% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+            }
+
+
+            .boton-comun-1 {
+                height: 20px; 
+                width: 80px; 
+                padding:0; 
+                color: rgb(108, 117, 125);
+                background: #fff; 
+                border: 1px solid rgb(108, 117, 125); 
+                border-radius: 5px;
+                padding: 0px 8px;
+                transition: 0.1s ease;
+            }
+
+            .boton-comun-1:hover {
+                color: #fff;
+                background: rgb(108, 117, 125);         
+            }
+
+            .boton-comun-2 {
+                height: 25px; 
+                width: 100px; 
+                padding:0;
+                color: rgb(108, 117, 125);
+                background: #fff; 
+                border: 1px solid rgb(108, 117, 125); 
+                border-radius: 5px;
+                padding: 0px 8px;
+                transition: 0.1s ease;
+            }
+
+            .boton-comun-2:hover{
+                color: #fff;
+                background: rgb(108, 117, 125);
+            }
+            
+            .boton-desplegable-1 {
+                height: 20px; 
+                width: 60px; 
+                color: rgb(108, 117, 125);
+                background: #fff; 
+                border: 1px solid rgb(108, 117, 125); 
+                border-radius: 5px;
+                padding: 0px 8px;
+                transition: 0.1s ease;
+            }
+
+            .boton-desplegable-1:hover {
+                color: #fff;
+                background: rgb(108, 117, 125);
+            }
+
+            .boton-desplegable-1:focus {
+                color: rgb(108, 117, 125);
+                background: #fff;
+            }
+
+            .boton-icono-1 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 20px; 
+                width: 25px; 
+                padding:0; 
+                background: #fff; 
+                border: 1px solid rgb(108, 117, 125); 
+                border-radius: 5px;
+                padding: 0px 8px;
+                cursor: pointer;
+                transition: 0.1s ease;
+            }
+
+            .boton-icono-1 i {
+                color: rgb(108, 117, 125);
+            }
+            .boton-icono-1:hover {
+                background: rgb(108, 117, 125);
+            }
+
+            .boton-icono-1:hover i {
+                color: #fff;
+                background: rgb(108, 117, 125);
+            }
+
+            .lamina-tabla {
+                margin: 20px;
+                border-radius: 0.25rem;
+                padding: 10px 30px 10px 30px;
+                box-shadow: 0px 0px 8px 0px #cccccc;
+            }
+
+            .contenedor-ancho {
+                overflow-x: auto;
+            }
+
+            .contenedor-ancho table{
+                width: 1000px;
+            }
+
+            /* Estilos para las celdas de la tabla */
+            .tabla-calificaciones td, .tabla-calificaciones th {
+                border: 1px solid rgb(219, 219, 219);
+                padding: 8px;
+                text-align: left;
+            }
+
+            .tabla-calificaciones thead td {
+                text-transform: uppercase;
+                font-weight: bold;
+                background: rgb(42, 75, 90);
+                color: #F3F4F4;
+            }
+
+            #registros-pp {
+                display: flex;
+                flex-direction: row;
+            }
+
+            #registros-control {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .boton-cabezal:hover {
+                color: #fff;
+                cursor: pointer;
+            }
+            
+            .boton-cabezal:hover i{
+                color: #fff;
+            }
+
+            .campo-boton{
+                padding: 0 10px;
+                border: none;
+                background: transparent;
+            }
+
+            .campo-icon {
+                background: transparent;
+                font-size: 12px;
+                color: rgb(105, 130, 139);
+
+            }
+
+            .campo-icon:hover {
+                color: #F3F4F4;
+
+            }
+
+            /* HEADER */
+            .logo {
+                width: 100%;
+                height: 150px;
+                overflow: hidden;
+                margin-bottom: 50px;
+                background: linear-gradient(to right, rgba(30, 50, 59, 0.8) 1%, rgba(42, 75, 90, 0.8) 8%, rgba(255, 255, 255, 0) 100%), url(https://www.sanlam.co.za/blog/PublishingImages/importanceWill.jpg);
+                background-blend-mode: multiply;
+                background-size: cover;
+                background-position: center;
+                box-shadow: 0px 4px 3px 0px #b5b5b5;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            
+            .logo-nombre{
+                height: 100%;
+                display: flex;
+                align-items: flex-end;
+                text-align: left;
+                color: rgb(222, 230, 233);
+                background: transparent;
+            }
+
+            .titulo-principal{
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin-inline: 20px !important;
+            }
+
+            .titulo-principal h3 {
+                font-size: 22px;
+                color: rgb(30, 50, 59);
+                margin: 0;
+                text-align: center;
+            }
+
+            .titulo-principal h4 {
+                font-size: 18px;
+                color: rgb(248, 131, 121);
+                margin: 0;
+                text-align: center;
+            }
+            
+            #nom_alumno {
+                color: rgb(248, 131, 121);
+                margin: 5% 0 10px 20px;
+                font-size: 13px;
+            }
+
+            .titulo-principal h5 {
+                font-size: 13px;
+                text-align: right;
+                color: rgb(138, 138, 138);
+            }   
+
+            .titulo-principal h6 {
+                font-size: 13px;
+                text-align: center;
+                margin: 0;
+            }   
+
+
+            /* Estilo input */
+            .input-container {
+                display: flex;
+                justify-content: right;
+                position: relative;
+                margin: 10px 0 10px 0;
+            }
+            input[type="text"] {
+                width: 200px;
+                padding: 4px 12px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                transition: border-color 0.1s ease;
+            }
+
+            input[type="text"]:focus {
+                border-color: rgb(249, 140, 131);
+                outline: none;
+            }
+            /* Estilo para el placeholder */
+            .input-container input[type="text"]::placeholder {
+                color: #999;
+            }
+            /* Efecto al pasar el cursor */
+            .input-container:hover input[type="text"] {
+                border-color: rgb(249, 140, 131);
+            }
+
+            /* Iconos */
+            .contenedor-iconos {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                width: auto;
+            }
+
+            .contenedor-iconos .icono-vacio {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 5px;
+                border: 1px solid #DFE6EA;
+                background: rgb(228, 230, 231);
+                width: 25px;
+                height: 25px;
+            }
+
+            .contenedor-iconos .icono-vacio i {
+                color: rgb(187, 187, 187);
+                font-size: 13px;
+            }
+
+            .contenedor-iconos .icono {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 5px;
+                border: 1px solid rgb(248, 131, 121);
+                background: #fff;
+                margin-inline: 2px;
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+            }
+
+            .contenedor-iconos .icono:hover {
+                border: 1px solid #fff;
+                background: rgb(248, 131, 121);
+            }
+            .contenedor-iconos .icono i {
+                font-size: 13px;
+                color: #F88379;
+            }
+
+            .contenedor-iconos .icono:hover i {
+                color: #fff;
+            }
+
+            .footer-contenedor{
+                background: linear-gradient(90deg, #2a4b5a 0%, #1e323b 100%);
+                flex-basis: 100%;
+                height: 200px;
+                margin-top: 50px;
+                padding: 50px 0 50px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+            }
+
+            .footer-contenedor .footer-left, 
+            .footer-contenedor .footer-right {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            .footer-contenedor .footer-left {
+                text-align: left;
+                width: 40%;
+                gap: 3px;
+            }
+
+            .footer-contenedor .footer-right {
+                text-align: left;
+                width: 40%;
+            }
+
+            .footer-contenedor h3 {
+                color: rgb(184, 184, 184);
+                font-size: 12px;
+                margin: 0;
+            }
+
+            .footer-contenedor h4 {
+                color: rgb(160, 160, 160);
+                font-size: 14px;
+                font-weight: bold;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+
+            .footer-contenedor p {
+                color: rgb(160, 160, 160);
+                margin: 0;
+                padding: 0;
+                font-size: 12px;
+                transition: 0.2s ease;
+            }
+
+            .footer-contenedor p i {
+                color: rgb(160, 160, 160);
+            }
+
+            .footer-contenedor .email:hover {
+                color: rgb(248, 131, 121);
+            }
+
+            .footer-contenedor .email:hover i {
+                color: rgb(248, 131, 121);
+            }
+
+            /* APRENDIZAJES */
+
+            .contenedor-acordeon {
+                margin: 10px 20px 20px 40px;
+            }
+
+            .acordeon-body h6 {
+                    font-size: 13px;
+                    margin-top: 10px;
+                    text-align: justify;
+                }
+            .aprendizaje-barra {
+                margin-bottom: 10px;
+            }
+
+            /* MEDIA QUERY */
+            @media(max-width: 700px){
+                body {
+                    overflow-x: hidden;
+                }
+                .row {
+                    flex-direction: column;
+                }
+
+                .bloque{
+                width: 100%;
+                margin: auto;
+                text-align: center;
+                }
+
+                .bloque h4{
+                margin-top: 10%;
+                }
+
+                .titulo-principal,
+                .titulo-principal h3,
+                .titulo-principal h4,
+                .titulo-principal h5 {
+                margin: 0;
+                }
+            }
+            
+        </style>
+
+        <!-- estilos estudiante -->
+        <style>
+        /* Respuestas cerradas */
+
+        .rc-card-contenedor {
+            display: flex; 
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding: 10px;
+        }
+        .rc-card {
+            flex-basis: 25%; 
+            min-width: 150px; 
+            height: 80px; 
+            border: 1px solid rgb(138, 138, 138); 
+            display: flex; 
+            flex-direction: row;
+            padding: 10px; 
+            background: #fff; 
+            border-radius: 5px;
+        }
+
+        .rc-card-1 {
+            width: 100px; 
+            display: flex; 
+            justify-content: center; 
+            text-align: center; 
+            align-items: center; 
+            
+        }
+        .rc-card-1 i {
+            font-size: 40px; 
+            
+        }
+        .rc-card-2 {
+            width: 100%; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            text-align: center;
+            align-items: center; 
+            
+        }
+
+        .rc-card-2 span {
+            font-size: 25px;
+        }
+
+        .rc-card-2 p {
+            padding: 0; 
+            margin: 0;
+        }
+
+        .tabla-rc table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .tabla-rc th, .tabla-rc td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            
+        }
+
+        .tabla-rc th {
+            background: rgb(42, 75, 90);
+            color: #fff;
+        }
+
+        /* APRENDIZAJES */
+        .aprendizaje-contenedor {
+            display: flex; 
+            flex-direction: column;
+            margin: 20px 0 20px 0;
+        }
+
+        .aprendizaje-contenedor h5 {
+            text-align: left; 
+            margin-left: 30px;
+            margin-bottom: 0;
+        }
+
+        .aprendizaje-contenedor p {
+            text-align: left; 
+            margin-left: 20px;
+        }
+
+        .tabla-aprendizaje {
+            display: flex; 
+            justify-content: center; 
+            margin-inline: 20px;
+        }
+        .tabla-aprendizaje th, .tabla-aprendizaje td {
+            border: 1px solid rgb(222, 230, 233);
+        }
+
+        .progress-container {
+            width: 200px; /* Ancho fijo del contenedor */
+            position: relative;
+            border: 1px solid rgb(248, 131, 121);
+        }
+
+        .progress-bar {
+            background-color: rgba(248, 131, 121, 0.4); /* Color de la barra de progreso */
+            height: 20px; /* Altura de la barra de progreso */
+            width: 0%; /* Ancho inicial */
+            transition: 0.3s ease;
+        }
+
+        .progress-container:hover .progress-bar {
+            background-color: rgba(248, 131, 121, 0.6);
+        }
+
+        .progress-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: rgb(136, 71, 65, 0.8);
+            transform: translate(-50%, -50%);
+            transition: 0.3s ease;
+        }
+
+        .progress-container:hover .progress-value {
+            color: rgb(136, 71, 65);
+        }
+
+        .icon-retro{
+            font-size: 8px;
+            transition: 0.3s ease;
+        }
+
+        .icon-retro i:hover {
+            color: rgb(248, 131, 121);
+        }
+
+        @media (max-width: 454px) {
+            *{
+                font-size: 16px;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .row {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .titulo-principal h5 {
+                text-align: center !important;
+            }
+
+            .bloque h4 {
+                text-align: center !important;
+            }
+
+            .rc-card-contenedor {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px;
+            }
+
+            /* APRENDIZAJES */
+            #grafico3 {
+                margin: 0;
+            }
+
+            #grafico3-boton .boton-comun-2{
+                width: 100% !important;
+                margin: 10px 0 10px 0;
+            }
+
+
+            /* TABLA APRENDIZAJES */
+
+            .aprendizaje-contenedor h5 {
+                    margin-left: 0 !important;
+                    padding-left: 10px;
+                }
+
+                .aprendizaje-contenedor p {
+                    margin-left: 0 !important;
+                }
+
+                .tabla-aprendizaje {
+                    margin: 0 !important;
+                }
+
+                .tabla-aprendizaje thead {
+                    display: none;
+                }
+
+                .tabla-aprendizaje, .tabla-aprendizaje tbody, .tabla-aprendizaje tr, .tabla-aprendizaje td {
+                    display: block;
+                    width: 100%;
+                    
+                }
+
+                .tabla-aprendizaje td {
+                    position: relative;
+                }
+
+                .tabla-aprendizaje td::before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 0;
+                    width: 50%;
+                    font-size: 15px;
+                    font-weight: bold;
+                    text-align: left;
+                    
+                }
+
+                .progress-container {
+                    width: 100% !important;
+                }
+
+                .si_retro_tag {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    display: block;
+                }
+            
+        }
+
+        @media (min-width: 455px) and (max-width: 804px) {
+            *{
+                font-size: 16px;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .row {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .titulo-principal h5 {
+                text-align: center !important;
+            }
+
+            .bloque h4 {
+                text-align: center !important;
+            }
+
+            .rc-card-contenedor {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px;
+            }
+
+            /* APRENDIZAJES */
+            #grafico3 {
+                margin: 0;
+            }
+
+            #grafico3-boton .boton-comun-2{
+                width: 100% !important;
+                margin: 10px 0 10px 0;
+            }
+
+            /* TABLA APRENDIZAJES */
+
+            .aprendizaje-contenedor h5 {
+                    margin-left: 0 !important;
+                    padding-left: 10px;
+                }
+
+                .aprendizaje-contenedor p {
+                    margin-left: 0 !important;
+                }
+
+                .tabla-aprendizaje {
+                    margin: 0 !important;
+                }
+
+                .tabla-aprendizaje thead {
+                    display: none;
+                }
+
+                .tabla-aprendizaje, .tabla-aprendizaje tbody, .tabla-aprendizaje tr, .tabla-aprendizaje td {
+                    display: block;
+                    width: 100%;
+                    
+                }
+
+                .tabla-aprendizaje td {
+                    position: relative;
+                }
+
+                .tabla-aprendizaje td::before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 0;
+                    width: 50%;
+                    font-size: 15px;
+                    font-weight: bold;
+                    text-align: left;
+                    
+                }
+
+                .progress-container {
+                    width: 100% !important;
+                }
+
+   
+
+        }
+
+        @media (min-width: 805px) and (max-width: 1360px) {
+
+            main {
+                min-width: 805px;
+                max-width: 805px;
+            }
+
+        }
+
+        @media (min-width: 1361px) and (max-width: 1500px) {
+            .si_retro_tag {
+                    display: none;
+                }
+        }
+
+        @media (min-width: 1501px) and (max-width: 2500px) {
+            
+            .si_retro_tag {
+                    display: none;
+                }
+        }
+
+        </style>
+        <script>var estudiante = [{"programa": "Programa de Lenguaje y Comunicaci\u00f3n", "asig": "HABILIDADES B\u00c1SICAS DE COMUNICACI\u00d3N", "nombre_prueba": "Examen Transversal", "num_prueba": 5, "lectura_fecha": "09-07-2024", "seccion": "PLC1101-022D", "docente": "DANIELLA FERNANDA O\u00d1ATE CONTRERAS", "rinde": "si", "tiene_formas": "si", "tiene_grupo": "no", "tiene_imagen": "si", "tiene_planilla": "no", "tiene_informe": "si", "n": 2, "rut": "162334158", "nombre_alum": "ALARCON SALINAS JONATHAN LEONARDO", "forma": 1.0, "grupo": 1.0, "nota": 3.6, "logro_obtenido": 0.595, "condicion": "A\u00fan no competente", "imagen": "https://duoccl0.sharepoint.com/sites/SUDCRA2/Lists/imgenes/Attachments/12861/Scan_0012.jpg", "id_seccion": 24096662, "id_matricula": "15507151623341582024001", "id_eval": "PLC1101-2024001-5", "id_matricula_eval": "15507151623341582024001.PLC1101-2024001-5", "nombre_sede": "VI\u00d1A DEL MAR", "rut_docente": "152175116", "user_alum": "JONA.ALARCONS", "tipo_sm": "si", "tipo_de": "no", "tipo_ru": "si", "puntaje_total_obtenido": 23.8, "total_puntos": 40.0, "informe_listo": false, "mensaje": "Estimada/o estudiante,\n\nNo te desanimes por el resultado alcanzado. Es importante que constates y verifiques las habilidades y contenidos que requieren refuerzo, pues el aprendizaje tambi\u00e9n se obtiene cuando comprendes en qu\u00e9 fallaste. Para lograrlo, solo necesitas ser tenaz, persistir y tener clara tu meta. \u00a1T\u00fa puedes!", "username_doc": "DA.ONATEC", "ver_correctas": "no", "nota_prom": 3.6, "logro_obtenido_prom": 0.608, "informe": "https://duoccl0-my.sharepoint.com/personal/lgutierrez_duoc_cl/Documents/SUDCRA/informes/alumnos/15507151623341582024001.PLC1101-2024001-5.html"}];</script>
+<script>var aprendizajes = [{"n": 1, "aprendizaje": "Aprendizaje 1", "clave": "a11", "orden": 1, "descripcion_aprendizaje": "Extraer informaci\u00f3n literal y no literal de diferentes tipos de textos escritos continuos y discontinuos, aplicando estrategias cognitivas.", "descripcion_indicador": "Describe los elementos, hechos y procesos de un discurso escrito a partir de la informaci\u00f3n literal y no literal que lo compone. ", "logro": 66.7, "logro_prom": 66.7, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 1", "url_retro": "0"}, {"n": 2, "aprendizaje": "Aprendizaje 2", "clave": "a21", "orden": 2, "descripcion_aprendizaje": "Sintetizar las ideas presentes en diferentes discursos escritos.", "descripcion_indicador": "Resume las ideas principales de un p\u00e1rrafo o de un texto completo despu\u00e9s de la lectura. ", "logro": 80.0, "logro_prom": 70.0, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 2", "url_retro": "0"}, {"n": 2, "aprendizaje": "Aprendizaje 2", "clave": "a22", "orden": 2, "descripcion_aprendizaje": "Sintetizar las ideas presentes en diferentes discursos escritos.", "descripcion_indicador": "Jerarquiza las ideas de un p\u00e1rrafo o de un texto completo luego de leerlo.", "logro": 60.0, "logro_prom": 70.0, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 2", "url_retro": "0"}, {"n": 3, "aprendizaje": "Aprendizaje 3", "clave": "a31", "orden": 3, "descripcion_aprendizaje": "Evaluar informaci\u00f3n literal y no literal de diferentes tipos de discursos escritos. ", "descripcion_indicador": "Realiza inferencias locales y globales a partir de un discurso escrito en contextos sociolaborales. ", "logro": 50.0, "logro_prom": 57.1, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 3", "url_retro": "0"}, {"n": 3, "aprendizaje": "Aprendizaje 3", "clave": "a31", "orden": 3, "descripcion_aprendizaje": "Evaluar informaci\u00f3n literal y no literal de diferentes tipos de discursos escritos. ", "descripcion_indicador": "Determina el punto de vista sostenido de manera expl\u00edcita por el emisor de un discurso escrito, seg\u00fan el prop\u00f3sito comunicativo en contextos sociolaborales.", "logro": 66.7, "logro_prom": 57.1, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 3", "url_retro": "0"}, {"n": 4, "aprendizaje": "Aprendizaje 4", "clave": "a41", "orden": 4, "descripcion_aprendizaje": "Elaborar textos continuos (informes, mails, instrucciones, entre otros), de acuerdo a la situaci\u00f3n comunicativa.", "descripcion_indicador": "Produce un discurso escrito, seg\u00fan tipo de texto, destinatario, registro de habla e intenci\u00f3n comunicativa.", "logro": 70.0, "logro_prom": 70.0, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 4", "url_retro": "0"}, {"n": 5, "aprendizaje": "Aprendizaje 5", "clave": "a53", "orden": 5, "descripcion_aprendizaje": "Organizar las ideas de manera coherente seg\u00fan el prop\u00f3sito del texto. ", "descripcion_indicador": "Construye p\u00e1rrafos organizados en ideas principales y secundarias de acuerdo al prop\u00f3sito del texto. ", "logro": 85.0, "logro_prom": 42.5, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 5", "url_retro": "0"}, {"n": 5, "aprendizaje": "Aprendizaje 5", "clave": "a51", "orden": 5, "descripcion_aprendizaje": "Organizar las ideas de manera coherente seg\u00fan el prop\u00f3sito del texto. ", "descripcion_indicador": "Utiliza marcadores discursivos para asegurar la coherencia de las relaciones entre los p\u00e1rrafos y dentro de ellos. ", "logro": 0.0, "logro_prom": 42.5, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 5", "url_retro": "0"}, {"n": 6, "aprendizaje": "Aprendizaje 6", "clave": "a63", "orden": 6, "descripcion_aprendizaje": "Editar el texto producido de acuerdo a las normas b\u00e1sicas de la escritura.", "descripcion_indicador": "Utiliza mecanismos de correferencia (sustituci\u00f3n l\u00e9xica, pronominalizaci\u00f3n y elipsis) para evitar redundancias en la elaboraci\u00f3n de textos. ", "logro": 100.0, "logro_prom": 55.0, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 6", "url_retro": "0"}, {"n": 6, "aprendizaje": "Aprendizaje 6", "clave": "a61", "orden": 6, "descripcion_aprendizaje": "Editar el texto producido de acuerdo a las normas b\u00e1sicas de la escritura.", "descripcion_indicador": "Selecciona las palabras adecuadas al contexto comunicativo para dar sentido al texto producido. ", "logro": 57.1, "logro_prom": 55.0, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 6", "url_retro": "0"}, {"n": 6, "aprendizaje": "Aprendizaje 6", "clave": "a62", "orden": 6, "descripcion_aprendizaje": "Editar el texto producido de acuerdo a las normas b\u00e1sicas de la escritura.", "descripcion_indicador": "Enmienda la ortograf\u00eda literal, acentual y puntual  utilizados en el texto producido para asegurar la comprensi\u00f3n. ", "logro": 34.0, "logro_prom": 55.0, "nombre_tipo_medida": "Aprendizaje", "nombre_tipo_medida2": "Indicador de Logro", "dimension": "Aprendizaje 6", "url_retro": "0"}];</script>
+<script>var resultados_sm = [{"item_num": 1, "resultado": "Correcta"}, {"item_num": 2, "resultado": "Correcta"}, {"item_num": 3, "resultado": "Correcta"}, {"item_num": 4, "resultado": "Incorrecta"}, {"item_num": 5, "resultado": "Correcta"}, {"item_num": 6, "resultado": "Correcta"}, {"item_num": 7, "resultado": "Incorrecta"}, {"item_num": 8, "resultado": "Incorrecta"}, {"item_num": 9, "resultado": "Correcta"}, {"item_num": 10, "resultado": "Correcta"}, {"item_num": 11, "resultado": "Correcta"}, {"item_num": 12, "resultado": "Incorrecta"}, {"item_num": 13, "resultado": "Correcta"}, {"item_num": 14, "resultado": "Correcta"}, {"item_num": 15, "resultado": "Correcta"}, {"item_num": 16, "resultado": "Incorrecta"}, {"item_num": 17, "resultado": "Correcta"}, {"item_num": 18, "resultado": "Incorrecta"}, {"item_num": 19, "resultado": "Incorrecta"}, {"item_num": 20, "resultado": "Correcta"}, {"item_num": 21, "resultado": "Incorrecta"}, {"item_num": 22, "resultado": "Correcta"}, {"item_num": 23, "resultado": "Incorrecta"}, {"item_num": 24, "resultado": "Incorrecta"}, {"item_num": 25, "resultado": "Incorrecta"}, {"item_num": 26, "resultado": "Correcta"}, {"item_num": 27, "resultado": "Incorrecta"}, {"item_num": 28, "resultado": "Incorrecta"}, {"item_num": 29, "resultado": "Incorrecta"}, {"item_num": 30, "resultado": "Incorrecta"}];</script>
+<script>var resultados_ru = [{"item_num": 1, "item_nombre": "1. Producci\u00f3n de texto", "nivel_descripcion": "DOMINIO ACEPTABLE", "puntaje_asignado": 1.4, "item_puntaje": 2.0}, {"item_num": 2, "item_nombre": "2. Vocabulario ", "nivel_descripcion": "EXCELENTE DOMINIO ", "puntaje_asignado": 2.0, "item_puntaje": 2.0}, {"item_num": 3, "item_nombre": "3. Precisi\u00f3n textual ", "nivel_descripcion": "EXCELENTE DOMINIO ", "puntaje_asignado": 2.0, "item_puntaje": 2.0}, {"item_num": 4, "item_nombre": "4. Ortograf\u00eda ", "nivel_descripcion": "ALTO DOMINIO ", "puntaje_asignado": 1.7, "item_puntaje": 2.0}, {"item_num": 5, "item_nombre": "5. Organizaci\u00f3n de p\u00e1rrafos", "nivel_descripcion": "ALTO DOMINIO ", "puntaje_asignado": 1.7, "item_puntaje": 2.0}];</script>
+<script>var resultados_de = [];</script>
+<script>var notas_estudiante = [{"nota": 4.0}, {"nota": 3.3}, {"nota": 3.6}, {"nota": 3.5}, {"nota": 2.6}, {"nota": 3.5}, {"nota": "-"}, {"nota": 3.9}, {"nota": 3.0}, {"nota": 3.8}, {"nota": 3.3}, {"nota": 3.9}, {"nota": 3.4}, {"nota": "-"}, {"nota": 3.9}, {"nota": 3.9}, {"nota": 3.6}, {"nota": 4.8}, {"nota": 3.6}, {"nota": "-"}, {"nota": 3.5}, {"nota": 2.8}, {"nota": 4.7}, {"nota": 4.2}, {"nota": 3.7}, {"nota": 3.5}, {"nota": "-"}, {"nota": "-"}];</script>
+<script>var logros_estudiante = [{"logro": 0.6925}, {"logro": 0.535}, {"logro": 0.6025}, {"logro": 0.5925}, {"logro": 0.3675}, {"logro": 0.5925}, {"logro": "-"}, {"logro": 0.675}, {"logro": 0.4625}, {"logro": 0.6425}, {"logro": 0.545}, {"logro": 0.6875}, {"logro": 0.5525}, {"logro": "-"}, {"logro": 0.6775}, {"logro": 0.685}, {"logro": 0.595}, {"logro": 0.775}, {"logro": 0.6025}, {"logro": "-"}, {"logro": 0.585}, {"logro": 0.42}, {"logro": 0.7675}, {"logro": 0.72}, {"logro": 0.62}, {"logro": 0.5925}, {"logro": "-"}, {"logro": "-"}];</script></head>
+
+    <body>
+        <main>
+            <!-- HEADER -->
+            <section class="bloque" style="margin-top: 0;">
+                <div class="logo">
+                    <div class="logo-nombre">
+                        <div class="svg-duoc" style="width: 150px;">
+                            <img src="https://www.duoc.cl/wp-content/themes/wordpress-duoc-cl/images/logo-duoc.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="titulo-principal">
+                    <h3>RETROALIMENTACIÓN DE RESULTADOS</h3>
+                    <h6 id="asignatura"></h6>
+                    <h4 id="evaluacion"></h4>
+                    <h5></h5>
+                </div>
+            </section>
+
+            <!-- RESULTADOS GENERALES-->
+            <section class="bloque">
+                <h4 id="nom_alumno" style="font-size: 13px;"></h4>
+                <h4 id="bloque-titulo-1">RESULTADOS GENERALES DE LA EVALUACIÓN</h4>
+                <div class="row">
+                    <div class="bloque-col-50">
+                        <div class="lamina-columna">
+                            <div class="lamina-1">
+                                <div style="display: flex; flex-direction: row; height: 112px;">
+                                    <div style="flex-basis: 50%;">
+                                        <div style="display: flex; flex-direction: column; height: 100%; justify-content: center; text-align: center; align-items: center;">
+                                            <h5 id="nota_text"></h5>
+                                            <span id="nota" style="padding: 20px; font-size: 56px; color: rgb(30, 144, 211);"></span>
+                                        </div>
+                                    </div>
+                                    <div style="flex-basis: 50%; height: 100%;">
+                                        <div style="display: flex; flex-direction: column; height: 100%;justify-content: space-evenly;">
+                                                <div id="contenedor_puntaje" style="display:flex; flex-direction: column; align-items: center;">
+                                                    <h5>Puntaje</h5>
+                                                    <span id="puntaje" style="font-size: 18px; color: rgb(30, 144, 211);"></span>
+                                                </div>
+                                                <div style="width: fit-content; border: 1px solid transparent; border-radius: 20px; background: rgb(189, 211, 220); padding: 6px 12px; margin-inline: auto;">
+                                                    <span id="desempeno"></span>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="lamina-1">
+                                <div style="display: flex; flex-direction: row; height: 94px;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Sede</td>
+                                                <td>:</td>
+                                                <td id="sede"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sección</td>
+                                                <td>:</td>
+                                                <td id="seccion"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Profesor</td>
+                                                <td>:</td>
+                                                <td id="profesor"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bloque-col-50">
+                        <div class="lamina-grafico" style="height: 270px;">
+                            <div class="header">
+                                <div class="titulo">
+                                    <h4>Rendimiento alcanzado</h4>
+                                    <p>Presenta una comparación entre tu rendimiento académico y el promedio de rendimiento de tus compañeros. Utiliza esta información para identificar tus fortalezas y áreas de mejora en tu proceso de aprendizaje</p>
+                                </div>
+                            </div>
+                            <canvas id="histogramChart" style="display: none; margin-top: 20px;"></canvas>
+                            <canvas id="histogramChart_logro" style="display: none; margin-top: 20px;"></canvas>
+                        </div> 
+                    </div>
+                </div>
+                <div class="comentarios">
+                    <p id="mensaje" style="text-align: justify;"></p>
+                </div>
+            </section>
+
+            <!-- APRENDIZAJES -->
+            <section class="bloque">
+                <h4 id="seccion_aprendizajes_titulo"></h4>
+                <div class="row">
+                    <div class="bloque-col-100">
+                        <div class="lamina-columna">
+                            <div class="lamina-grafico-2">
+                                <div class="header">
+                                    <div class="titulo">
+                                        <h4 id="seccion_aprendizajes_subtitulo"></h4>
+                                        <p>Facilita una comparación sencilla entre los objetivos y ayuda a identificar dónde se tienen fortalezas o aspectos que requieren mayor atención.</p>
+                                        <div id="grafico3-boton" style="display: flex; justify-content: right;">
+                                            <button onclick="quitarfiltrosaprendizajes()" class="boton-comun-2" style="margin-left: 10px;">Quitar filtros</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dim-grafico-2">
+                                    <canvas id="grafico"></canvas>
+                                </div>   
+                                <div id="contenedor-aprendizajes" class="aprendizaje-contenedor">
+                                    <!-- Aquí van las tablas por aprendizajes -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RETROALIMENTACIÓN GRAFICA-->
+            <section class="bloque">
+                <h4>EXPLORACIÓN DE TU DESEMPEÑO</h4>
+                <div class="row">
+                    <div class="bloque-col-100">
+                        <div class="lamina-columna">
+                            <div class="lamina-grafico-2">
+                                <div class="header">
+                                    <div class="titulo">
+                                        <h4>Distribución por calificación</h4>
+                                        <p>Ofrece una visión general de cómo se distribuyen las calificaciones en el curso. Observarás diferentes puntos que representan las notas de tus compañeros. Aunque recuerda que cada estudiante tiene su propio progreso y trayectoria.</p>
+                                    </div>
+                                </div>
+                                <div class="dim-grafico-2">
+                                    <canvas id="scatterChart" style="display: block;"></canvas>
+                                    <canvas id="scatterChart_logro" style="display: block;"></canvas>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seleccion multiple-->
+            <section id="seccion_sm" class="bloque" style="display: none;">
+                <h4>RESULTADOS: ÍTEMES DE SELECCIÓN MÚLTIPLE</h4>
+                <div class="row">
+                    <div class="bloque-col-100">
+                        <div class="lamina-columna">
+                            <div class="lamina-grafico-2">
+                                <div class="rc-card-contenedor">
+                                    <div class="rc-card" style="border: 1px solid green;">
+                                        <div class="rc-card-1">
+                                            <i class="fas fa-check" style="color: green;"></i>
+                                        </div>
+                                        <div class="rc-card-2">
+                                            <span id="n_correctas" style="color: green;"></span>
+                                            <p style="color: green;">Correctas</p>
+                                        </div>
+                                    </div>
+                                    <div class="rc-card" style="border: 1px solid red;">
+                                        <div class="rc-card-1">
+                                            <i class="fas fa-times" style="color: red;"></i>
+                                        </div>
+                                        <div class="rc-card-2">
+                                            <span id="n_incorrectas" style="color: red;"></span>
+                                            <p style="color: red;">Incorrectas</p>
+                                        </div>
+                                    </div>
+                                    <div class="rc-card" style="border: 1px solid gray;">
+                                        <div class="rc-card-1">
+                                            <i class="fas fa-minus-circle" style="color: gray;"></i>
+                                        </div>
+                                        <div class="rc-card-2">
+                                            <span id="n_omitidas" style="color: gray;"></span>
+                                            <p style="color: gray;">Omitidas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ver_correctas" class="accordion accordion-flush contenedor-acordeon">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingOne">
+                                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            Correctas
+                                          </button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent=".contenedor-acordeon">
+                                          <div class="accordion-body">
+                                            <div class="tabla-rc" style="display: flex; justify-content: center; margin: 0;">
+                                                <table>
+                                                    <thead style="background: rgb(42, 75, 90); color: #fff;">
+                                                        <tr>
+                                                            <th>Numeración</th>
+                                                            <th>Resultado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Aquí van resultados -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            Incorrectas
+                                          </button>
+                                        </h2>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent=".contenedor-acordeon">
+                                          <div class="accordion-body">
+                                            <div class="tabla-rc" style="display: flex; justify-content: center; margin: 0;">
+                                                <table>
+                                                    <thead style="background: rgb(42, 75, 90); color: #fff;">
+                                                        <tr>
+                                                            <th>Numeración</th>
+                                                            <th>Resultado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Aquí van resultados -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingThree">
+                                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Omitidas
+                                          </button>
+                                        </h2>
+                                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent=".contenedor-acordeon">
+                                          <div class="accordion-body">
+                                            <div class="tabla-rc" style="display: flex; justify-content: center; margin: 0;">
+                                                <table>
+                                                    <thead style="background: rgb(42, 75, 90); color: #fff;">
+                                                        <tr>
+                                                            <th>Numeración</th>
+                                                            <th>Resultado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Aquí van resultados -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preguntas de desarrollo -->
+            <section id="seccion_de" class="bloque" style="display: none;">
+                <h4>RESULTADOS: ÍTEMES DE DESARROLLO</h4>
+                <div class="row">
+                    <div class="bloque-col-100">
+                        <div class="lamina-columna">
+                            <div class="lamina-grafico-2">
+                                <div id="tabla_de" class="tabla-rc" style="display: flex; justify-content: center; margin: 0;">
+                                    <table>
+                                        <thead style="background: rgb(42, 75, 90); color: #fff;">
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Logro</th>
+                                                <th>Puntaje Alcanzado</th>
+                                                <th>Puntaje Máximo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Aquí van los registros -->
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rubrica -->
+            <section id="seccion_ru" class="bloque" style="display: none;">
+                <h4>RESULTADOS: ÍTEMS DE RUBRICA</h4>
+                <div class="row">
+                    <div class="bloque-col-100">
+                        <div class="lamina-columna">
+                            <div class="lamina-grafico-2">
+                                <div id="tabla_ru" class="tabla-rc" style="display: flex; justify-content: center; margin: 0; overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse">
+                                        <thead style="background: rgb(42, 75, 90); color: #fff;">
+                                            <tr>
+                                                <th>N</th>
+                                                <th style="text-align: left;">Aspecto</th>
+                                                <th>Evaluación Conceptual</th>
+                                                <th>Puntaje Alcanzado</th>
+                                                <th>Puntaje Máximo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Acá va el contenido -->
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+          
+            <!-- FOOTER -->
+            <section class="bloque">
+                <div class="row">
+                    <div class="footer-contenedor">
+                        <div class="footer-left">
+                            <div class="svg-duoc" style="width: 120px; margin-bottom: 10px;">
+                                <img src="https://www.duoc.cl/wp-content/themes/wordpress-duoc-cl/images/logo-duoc.svg" alt="">
+                            </div>
+                            <h3>SUDCRA</h3>
+                            <p>Dirección de Formación General.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+
+
+    <!-- SCRIPTS -->
+
+    <!-- Variables -->
+    <script>
+    Chart.register(ChartDataLabels);
+    </script>
+    <!-- Convertir a título -->
+    <script>
+    function convertirATitulo(str) {
+    return str.toLowerCase().replace(/(?:^|\s)\w/g, function(letra) {
+        return letra.toUpperCase();
+    });
+    }
+    </script>
+    <!-- Asignar valores al html -->
+    <script>
+        // Obtenemos el elemento div por su id
+        var asignaturaDiv = document.getElementById("asignatura");
+        var evaluacionDiv = document.getElementById("evaluacion");
+        var nom_alumnoDiv = document.getElementById("nom_alumno");
+        var nota_textDiv = document.getElementById("nota_text");
+        var notaDiv = document.getElementById("nota");
+        var desempenoDiv = document.getElementById("desempeno");
+        var puntajeDiv = document.getElementById("puntaje");
+        var sedeDiv = document.getElementById("sede");
+        var seccionDiv = document.getElementById("seccion");
+        var profesorDiv = document.getElementById("profesor");
+
+        var ver_correctasDiv = document.getElementById("ver_correctas");
+
+        var canvas_nota = document.getElementById('scatterChart');
+        var canvas_logro = document.getElementById('scatterChart_logro');
+        
+        var seccion_aprendizajes_tituloDiv = document.getElementById('seccion_aprendizajes_titulo');
+        var seccion_aprendizajes_subtituloDiv = document.getElementById('seccion_aprendizajes_subtitulo');
+
+        var mensajeDiv = document.getElementById('mensaje');
+
+        asignaturaDiv.textContent = estudiante[0].asig;
+        evaluacionDiv.textContent = estudiante[0].nombre_prueba;
+        nom_alumnoDiv.textContent = 'ALUMNO: ' + estudiante[0].nombre_alum;
+        desempenoDiv.textContent = estudiante[0].condicion;
+        puntajeDiv.textContent = estudiante[0].puntaje_total_obtenido + '/' + estudiante[0].total_puntos;
+        sedeDiv.textContent = estudiante[0].nombre_sede;
+        seccionDiv.textContent = estudiante[0].seccion;
+        profesorDiv.textContent = estudiante[0].docente;
+        /* Seccion de aprendizajes */
+        seccion_aprendizajes_tituloDiv.textContent = aprendizajes[0].nombre_tipo_medida;
+        seccion_aprendizajes_subtituloDiv.textContent = 'Logro promedio por ' + aprendizajes[0].nombre_tipo_medida;
+
+        si_retro = aprendizajes[0].url_retro;
+        
+        /* Mensaje */
+        mensajeDiv.textContent = estudiante[0].mensaje;
+        
+        if (estudiante[0].ver_correctas === "no") {
+            ver_correctasDiv.style.display = 'none';
+        }
+
+
+        if (estudiante[0].num_prueba === 0) {
+            nota_textDiv.textContent = "Logro";
+            notaDiv.textContent = (estudiante[0].logro_obtenido * 100).toFixed(1) + '%';
+            canvas_nota.style.display = 'none';
+            canvas_logro.style.display = 'block';
+            histogramChart.style.display = "none";
+            histogramChart_logro.style.display = "block";
+            
+        } else {
+            nota_textDiv.textContent = "Nota";
+            notaDiv.textContent = estudiante[0].nota;
+            canvas_nota.style.display = 'block';
+            canvas_logro.style.display = 'none';
+            histogramChart.style.display = "block";
+            histogramChart_logro.style.display = "none";
+        }
+
+        /* MOSTRAR SECCIONES DE SM,DE,RU */
+
+        var seccion_sm= document.getElementById("seccion_sm");
+        var seccion_de= document.getElementById("seccion_de");
+        var seccion_ru= document.getElementById("seccion_ru");
+
+        if (estudiante[0].tipo_sm === "si") {
+            seccion_sm.style.display = "block";
+        } 
+
+        if (estudiante[0].tipo_de === "si") {
+            seccion_de.style.display = "block";
+        } 
+
+        if (estudiante[0].tipo_ru === "si") {
+            seccion_ru.style.display = "block";
+        } 
+
+
+    </script>
+    <!-- Gráfico de barras (nota)-->
+    <script>
+        function crearHistograma(estudiante) {
+            var calificaciones = {
+                "ALUMNO": parseFloat(estudiante[0].nota),
+                "SECCION": parseFloat(estudiante[0].nota_prom)
+            };
+
+            var ctx = document.getElementById('histogramChart').getContext('2d');
+            var data = {
+                labels: ['ALUMNO', 'PROM SECCION'],
+                datasets: [{
+                    label: 'Cantidad de Estudiantes',
+                    data: [calificaciones.ALUMNO || 0, calificaciones.SECCION || 0], // Usamos el valor de la calificación si existe, de lo contrario, usamos 0
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            var maxDataValue = Math.max(...data.datasets[0].data);
+            var maxYValue = maxDataValue + 1;
+            var options = {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: true,
+                        max: maxYValue + 2,
+                        grid: {
+                            display: false // Esto oculta las líneas divisorias del eje y
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    datalabels: {
+                        color: 'gray',
+                        font: {
+                            size: 15,
+                            style: 'normal',
+                            family: "'Lato', 'Poppins', sans-serif"
+                        },
+                        align: 'center',
+                        anchor: 'right',
+                        display: true,
+                        backgroundColor: 'transparent',
+                        padding: {
+                            top: 5,
+                            bottom: 5,
+                            left: 10,
+                            right: 10
+                        }
+                    }
+                }
+            };
+
+            var histogramChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        }
+
+        crearHistograma(estudiante);
+    </script>
+    <!-- Gráfico de barras (logro)-->
+    <script>
+        function crearHistograma_logro(estudiante) {
+            var calificaciones = {
+                "ALUMNO": parseFloat(estudiante[0].logro_obtenido),
+                "SECCION": parseFloat(estudiante[0].logro_obtenido_prom),
+            };
+
+            var ctx = document.getElementById('histogramChart_logro').getContext('2d');
+            var data = {
+                labels: ['ALUMNO', 'PROM SECCION'],
+                datasets: [{
+                    label: 'Cantidad de Estudiantes',
+                    data: [calificaciones.ALUMNO || 0, calificaciones.SECCION || 0], // Usamos el valor de la calificación si existe, de lo contrario, usamos 0
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            var maxDataValue = Math.max(...data.datasets[0].data);
+            var maxYValue = maxDataValue + 1;
+            var options = {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: true,
+                        max: maxYValue + 2,
+                        grid: {
+                            display: false // Esto oculta las líneas divisorias del eje y
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    datalabels: {
+                        formatter: function(value, context) {
+                            return (value * 100).toFixed(1) + '%';
+                        },
+                        color: 'gray',
+                        font: {
+                            size: 15,
+                            style: 'normal',
+                            family: "'Lato', 'Poppins', sans-serif"
+                        },
+                        align: 'center',
+                        anchor: 'right',
+                        display: true,
+                        backgroundColor: 'transparent',
+                        padding: {
+                            top: 5,
+                            bottom: 5,
+                            left: 10,
+                            right: 10
+                        }
+                    }
+                }
+            };
+
+            var histogramChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        }
+
+        crearHistograma_logro(estudiante);
+    </script>
+    <!-- Dispersion (nota) -->
+    <script>
+        // Obtener las calificaciones de los estudiantes
+        const calificaciones = notas_estudiante.map(estudiante => parseFloat(estudiante.nota));
+
+        // Calcular la frecuencia de cada calificación
+        const frecuenciaCalificaciones = {};
+        calificaciones.forEach(nota => {
+            frecuenciaCalificaciones[nota] = (frecuenciaCalificaciones[nota] || 0) + 1;
+        });
+
+        // Crear los datos para el gráfico de dispersión
+        const scatterData = {
+            datasets: [{
+                label: 'Otros resultados',
+                data: calificaciones.map(nota => ({
+                    x: nota,
+                    y: 0  // Inicialmente todos los puntos en la misma línea base
+                })),
+                backgroundColor: 'rgba(28, 218, 191, 0.6)',  // Color celeste
+                borderColor: 'rgb(28, 218, 191)',        // Color celeste
+                borderWidth: 1,
+                pointRadius: 6,
+                pointHoverRadius: 7,
+                pointHoverBackgroundColor: 'rgba(255, 233, 0, 0.5)',        // Color amarillo
+                pointHoverBorderColor: 'rgb(255, 233, 0)',             // Color del borde al hacer hover
+                
+            }],
+        };
+
+        // Configuración del gráfico de dispersión
+        const scatterConfig = {
+            type: 'scatter',
+            data: scatterData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Calificación'
+                        },
+                        min: 0, // Establecer el mínimo en 0
+                        max: 8, // Establecer el máximo en 8
+                        grid: {
+                            display: true,
+                            drawBorder: false, // No dibujar la línea del borde del gráfico
+                            drawOnChartArea: false, // No dibujar la línea de la escala en el área del gráfico
+                        },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                // Mostrar solo las etiquetas de 1 a 7
+                                if (value >= 1 && value <= 7) {
+                                    return value;
+                                } else {
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+
+                    y: {
+                        display: false,  // Ocultar el eje y
+                        type: 'linear',
+                        title: {
+                            display: false,
+                            text: 'Altura'
+                        },
+                        max: 3,
+                        min: -3,
+                        ticks: {
+                            stepSize: 5,  // Separación de 5 píxeles entre puntos
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Calificación: ' + context.raw.x;
+                            }
+                            
+                        },
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)', // Color de fondo del tooltip
+                        borderColor: 'rgba(255, 255, 255, 0.5)', // Color del borde del tooltip
+                        borderWidth: 0, // Ancho del borde del tooltip
+                        titleColor: 'rgba(255, 255, 255, 1)', // Color del texto del título del tooltip
+                        bodyColor: 'rgba(0, 0, 0, 0.6)', // Color del texto del cuerpo del tooltip
+                    },
+                }
+            }
+        };
+
+        // Crear el gráfico de dispersión
+        var scatterChart = new Chart(
+            document.getElementById('scatterChart'),
+            scatterConfig
+        );
+        // Distribuir los puntos verticalmente para evitar superposiciones
+        Object.entries(frecuenciaCalificaciones).forEach(([nota, frecuencia]) => {
+            if (frecuencia > 1) {
+                const data = scatterData.datasets[0].data.filter(point => point.x == nota);
+                const alturas = [];
+                for (let i = 0; i < frecuencia; i++) {
+                    alturas.push(((i - (frecuencia - 1) / 2) / ((frecuencia - 1) / 2)) * 1); // Las alturan se mueven en el rango -1 a 1.
+                }
+                data.forEach((point, index) => {
+                    point.y = alturas[index];
+                    point.label = ""; // Establecer la etiqueta en blanco para todos los puntos
+                });
+            } else {
+                // Si solo hay un punto con esta calificación, también eliminamos su etiqueta
+                const data = scatterData.datasets[0].data.filter(point => point.x == nota);
+                data.forEach(point => {
+                    point.label = ""; // Establecer la etiqueta en blanco para todos los puntos
+                });
+            }
+        });
+
+
+        // Actualizar el gráfico después de distribuir los puntos
+        scatterChart.update();
+    </script>
+    <!-- Agregar punto al grafico de dispersion (nota) -->
+    <script>
+    const notaEstudiante = parseFloat(estudiante[0].nota);
+    const nombreEstudiante = convertirATitulo(estudiante[0].nombre_alum);
+    
+        // Agregar la nota del estudiante al conjunto de datos del gráfico de dispersión
+    scatterData.datasets.unshift({
+        label: nombreEstudiante,
+        data: [{
+            x: notaEstudiante,
+            y: 0,
+            label: "" // Establecer la etiqueta en blanco para el punto
+        }],
+        backgroundColor: 'rgba(255, 0, 0, 0.6)', // Color rojo
+        borderColor: 'rgb(255, 0, 0)', // Color rojo
+        borderWidth: 1,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: 'rgba(255, 233, 0, 0.5)', // Color amarillo
+        pointHoverBorderColor: 'rgb(255, 233, 0)', // Color del borde al hacer hover
+    });
+
+    // Actualizar el gráfico después de agregar la nota del estudiante
+    scatterChart.update();
+    </script>
+    <!-- Dispersion (logro) -->
+    <script>
+        // Filtrar los valores inválidos
+        const logrosFiltrados = logros_estudiante.filter(estudiante => typeof estudiante.logro === 'number');
+
+        // Obtener los logros obtenidos de los estudiantes
+        const logros = logrosFiltrados.map(estudiante => (estudiante.logro * 100).toFixed(1));
+
+         // Calcular la frecuencia de cada logro
+        const frecuenciaLogros = {};
+        logros.forEach(logro => {
+            frecuenciaLogros[logro] = (frecuenciaLogros[logro] || 0) + 1;
+        });
+
+        // Crear los datos para el gráfico de dispersión para logros obtenidos
+        const scatterDataLogros = {
+            datasets: [{
+                label: 'Otros resultados',
+                data: logros.map(logro => ({
+                    x: logro,
+                    y: 0  // Inicialmente todos los puntos en la misma línea base
+                })),
+                backgroundColor: 'rgba(28, 218, 191, 0.6)',  // Color celeste
+                borderColor: 'rgb(28, 218, 191)',        // Color celeste
+                borderWidth: 1,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: 'rgba(255, 233, 0, 0.5)',        // Color amarillo
+                pointHoverBorderColor: 'rgb(255, 233, 0)',             // Color del borde al hacer hover
+            }],
+        };
+
+        // Configuración del gráfico de dispersión para logros obtenidos
+        const scatterConfigLogros = {
+            type: 'scatter',
+            data: scatterDataLogros,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Logro'
+                        },
+                        grid: {
+                            display: false,
+                        },
+                        min: -10,
+                        max: 110,
+                        grid: {
+                            display: true,
+                            drawBorder: false, // No dibujar la línea del borde del gráfico
+                            drawOnChartArea: false, // No dibujar la línea de la escala en el área del gráfico
+                        },
+                        ticks: {
+                            stepSize: 10,
+                            callback: function(value, index, values) {
+                                // Mostrar solo las etiquetas de 0 a 100
+                                if (value >= 0 && value <= 100) {
+                                    return value;
+                                } else {
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+                    y: {
+                        display: false,  // Ocultar el eje y
+                        type: 'linear',
+                        title: {
+                            display: false,
+                            text: 'Altura'
+                        },
+                        max: 3,
+                        min: -3,
+                        ticks: {
+                            stepSize: 1,  // Separación de 1 unidad entre puntos
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Logro: ' + context.raw.x + '%';
+                            },
+                            
+                        },
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)', // Color de fondo del tooltip
+                        borderColor: 'rgba(255, 255, 255, 0.5)', // Color del borde del tooltip
+                        borderWidth: 0, // Ancho del borde del tooltip
+                        titleColor: 'rgba(255, 255, 255, 1)', // Color del texto del título del tooltip
+                        bodyColor: 'rgba(0, 0, 0, 0.6)', // Color del texto del cuerpo del tooltip
+                    },
+                }
+            }
+        };
+
+        // Crear el gráfico de dispersión para logros obtenidos
+        var scatterChartLogros = new Chart(
+            document.getElementById('scatterChart_logro'),
+            scatterConfigLogros
+        );
+
+        // Distribuir los puntos verticalmente para evitar superposiciones
+        Object.entries(frecuenciaLogros).forEach(([logro, frecuencia]) => {
+            if (frecuencia > 1) {
+                const data = scatterDataLogros.datasets[0].data.filter(point => point.x == logro);
+                const alturas = [];
+                for (let i = 0; i < frecuencia; i++) {
+                    alturas.push(((i - (frecuencia - 1) / 2) / ((frecuencia - 1) / 2)) * 1); // Las alturan se mueven en el rango -1 a 1.
+                }
+                data.forEach((point, index) => {
+                    point.y = alturas[index];
+                    point.label = ""; // Establecer la etiqueta en blanco para todos los puntos
+                });
+            } else {
+                // Si solo hay un punto con este logro, también eliminamos su etiqueta
+                const data = scatterDataLogros.datasets[0].data.filter(point => point.x == logro);
+                data.forEach(point => {
+                    point.label = ""; // Establecer la etiqueta en blanco para todos los puntos
+                });
+            }
+        });
+
+        // Actualizar el gráfico después de distribuir los puntos
+        scatterChartLogros.update();
+    </script>
+    <!-- Agregar punto al grafico de dispersion (logro) -->
+    <script>
+    const logroEstudiante = (parseFloat(estudiante[0].logro_obtenido) * 100).toFixed(1);
+
+        // Agregar la nota del estudiante al conjunto de datos del gráfico de dispersión
+    scatterDataLogros.datasets.unshift({
+        label: nombreEstudiante,
+        data: [{
+            x: logroEstudiante,
+            y: 0,
+            label: "" // Establecer la etiqueta en blanco para el punto
+        }],
+        backgroundColor: 'rgba(255, 0, 0, 0.6)', // Color rojo
+        borderColor: 'rgb(255, 0, 0)', // Color rojo
+        borderWidth: 1,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: 'rgba(255, 233, 0, 0.5)', // Color amarillo
+        pointHoverBorderColor: 'rgb(255, 233, 0)', // Color del borde al hacer hover
+    });
+
+    // Actualizar el gráfico después de agregar la nota del estudiante
+    scatterChartLogros.update();
+    </script>
+    <!-- Grafico de barras para aprendizajes -->
+    <script>
+        var aprendizajesUnicos = [];
+        var aprendizamientosUnicosSet = new Set();
+        aprendizajes.forEach(aprendizaje => {
+            if (!aprendizamientosUnicosSet.has(aprendizaje.aprendizaje)) {
+                aprendizajesUnicos.push(aprendizaje);
+                aprendizamientosUnicosSet.add(aprendizaje.aprendizaje);
+            }
+        });
+    
+        // Extraer los datos necesarios para el gráfico
+        var gruposLabels = aprendizajesUnicos.map(aprendizaje => aprendizaje.dimension);
+        var datos = aprendizajesUnicos.map(aprendizaje => parseFloat(aprendizaje.logro_prom));
+    
+        // Obtener el contexto del canvas
+        let ctx = document.getElementById('grafico').getContext('2d');
+    
+        // Crear el gráfico de barras
+        let myChart3 = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: gruposLabels,
+                datasets: [{
+                    label: 'Logro porcentual por aprendizaje',
+                    data: datos,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo de las barras
+                    borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    datalabels: {
+                        formatter: function(value, context) {
+                            return value + '%'; // Añadir el símbolo "%" al valor
+                        },
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    // Agregar un evento de clic al gráfico
+    document.getElementById('grafico').onclick = function(evt) {
+        let activePoints = myChart3.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
+        let firstPoint = activePoints[0];
+        if (firstPoint) {
+        let aprendizajeSeleccionado = myChart3.data.labels[firstPoint.index];
+        // Cambiar el color de todas las barras a gris
+        myChart3.data.datasets[0].backgroundColor = Array(myChart3.data.datasets[0].data.length).fill('rgba(128, 128, 128, 0.2)');
+        myChart3.data.datasets[0].borderColor = Array(myChart3.data.datasets[0].data.length).fill('rgba(128, 128, 128, 0.6)'); // Añadir esta línea
+        // Mantener el color de la barra seleccionada y su borde
+        myChart3.data.datasets[0].backgroundColor[firstPoint.index] = 'rgba(54, 162, 235, 0.2)';
+        myChart3.data.datasets[0].borderColor[firstPoint.index] = 'rgba(54, 162, 235, 1)';
+
+        // Renderizar el gráfico con los nuevos colores
+        myChart3.update();
+
+        // Aquí puedes realizar cualquier otra acción que necesites
+        // Por ejemplo, filtrar una tabla como en tu código original
+        filtrartablaaprendizaje(aprendizajeSeleccionado);
+    }
+    };
+
+    </script>
+    <!-- Crear tablas por aprendizaje-->
+    <script>
+        function obtenerDescripcionIndicadores() {
+            var homeDiv = document.getElementById('contenedor-aprendizajes');
+    
+            var uniqueAprendizajes = [...new Set(aprendizajes.map(item => item.aprendizaje))];
+            uniqueAprendizajes.forEach((aprendizaje, index) => {
+                var descripcionAprendizaje = aprendizajes.find(item => item.aprendizaje === aprendizaje).descripcion_aprendizaje;
+                var descripcionIndicadores = aprendizajes.filter(item => item.aprendizaje === aprendizaje);
+                
+                var contenedorAprendizaje = document.createElement('div');
+                contenedorAprendizaje.classList.add('aprendizaje-contenedor');
+                contenedorAprendizaje.setAttribute('id', aprendizajes[0].dimension.slice(0, -1) + (index + 1));
+                
+                var titulo = document.createElement('h5');
+                titulo.textContent = aprendizajes[0].nombre_tipo_medida + ' ' + obtenerNumeroTitulo(aprendizajes[0].dimension.slice(0, -1)) + (index + 1);
+    
+                var descripcion = document.createElement('p');
+                descripcion.textContent = descripcionAprendizaje;
+    
+                var tabla = document.createElement('div');
+                tabla.classList.add('tabla-rc', 'tabla-aprendizaje');
+                
+
+
+                var tablaHtml = '<table><thead style="background: rgb(42, 75, 90); color: #fff;">' +
+                '<tr>' +
+                '<th style="width: 470px; color: #fff;">' + aprendizajes[0].nombre_tipo_medida2 + '</th>' +
+                '<th style="width: auto; color: #fff;">% de logro</th></tr></thead><tbody>';
+
+                descripcionIndicadores.forEach(indicador => {
+                    if (indicador.url_retro !== '' && indicador.url_retro !== '0.0' && indicador.logro < 60) {
+                        tablaHtml += '<tr>' +
+                            '<td>' + indicador.descripcion_indicador + '</td>' +
+                            '<td><div class="progress-container" id="progress-container-' + indicador.n + '"><div class="progress-bar" id="progress-bar-' + indicador.n + '"></div><div class="progress-value" id="progress-value-' + indicador.n + '">' + indicador.logro + '</div></div></td></tr>';
+                    } else {
+                        tablaHtml += '<tr>' +
+                            '<td>' + indicador.descripcion_indicador + '</td>' +
+                            '<td><div class="progress-container" id="progress-container-' + indicador.n + '"><div class="progress-bar" id="progress-bar-' + indicador.n + '"></div><div class="progress-value" id="progress-value-' + indicador.n + '">' + indicador.logro + '</div></div></td></tr>';
+                    }
+                });
+
+                tablaHtml += '</tbody></table>';
+    
+                tabla.innerHTML = tablaHtml;
+    
+                contenedorAprendizaje.appendChild(titulo);
+                contenedorAprendizaje.appendChild(descripcion);
+                contenedorAprendizaje.appendChild(tabla);
+    
+                homeDiv.appendChild(contenedorAprendizaje);
+            });
+    
+            }
+    
+        // Función auxiliar para obtener el número del título
+        function obtenerNumeroTitulo(texto) {
+            var regex = /\d+$/; // Expresión regular para encontrar el número al final del texto
+            var match = regex.exec(texto);
+            return match ? match[0] : ''; // Devuelve el número encontrado o una cadena vacía si no se encuentra
+        }
+        // Llame a la función para agregar el contenido al div existente "home":
+        obtenerDescripcionIndicadores();
+    </script>
+    <!-- Filtra de tablas -->
+    <script>
+        function filtrartablaaprendizaje(aprendizajeSeleccionado) {
+        // Obtener todos los divs
+        let divs = document.querySelectorAll('div');
+    
+        // Ocultar todos los divs cuyos IDs comienzan con aprendizajeSeleccionado menos los últimos tres caracteres
+        divs.forEach(function(div) {
+            if (div.id.startsWith(aprendizajeSeleccionado.substring(0, aprendizajeSeleccionado.length - 3))) {
+                div.style.display = "none";
+            }
+        });
+
+        // Mostrar el div correspondiente al aprendizaje seleccionado
+        let divSeleccionado = document.getElementById(aprendizajeSeleccionado);
+        if (divSeleccionado) {
+            divSeleccionado.style.display = "block";
+        }
+    }
+
+    </script>
+    <!-- Quitar filtros -->
+    <script>
+        function quitarfiltrosaprendizajes() {
+        // PRIMERO RESTABLECEMOS COLORES DEL GRAFICO
+        // Obtener el color original de las barras del conjunto de datos
+        let coloresOriginalesFondo = myChart3.data.datasets[0].backgroundColor.map(color => 'rgba(54, 162, 235, 0.2)');
+        let coloresOriginalesBorde = myChart3.data.datasets[0].borderColor.map(color => 'rgba(54, 162, 235, 1)');
+        // Asignar los colores originales al conjunto de datos del gráfico
+        myChart3.data.datasets[0].backgroundColor = coloresOriginalesFondo;
+        myChart3.data.datasets[0].borderColor = coloresOriginalesBorde;
+
+        // Actualizar el gráfico con los colores restablecidos
+        myChart3.update();
+        
+        // SEGUNDO RESTABLECEMOS LOS DIVS
+
+            // Obtener todos los divs
+            let divs = document.querySelectorAll('div');
+            
+            // Obtener el substring del ID del primer elemento en aprendizajes
+            let substringLength = aprendizajes[0].dimension.length - 3;
+            let substringPrefix = aprendizajes[0].dimension.substring(0, substringLength);
+    
+            // Iterar sobre los divs
+            divs.forEach(function(div) {
+                // Verificar si el ID del div comienza con el substringPrefix
+                if (div.id.startsWith(substringPrefix)) {
+                    div.style.display = "block"; // Mostrar el div
+                }
+            });
+            
+        }
+    </script>
+    <!-- Crea barras de progreso -->
+    <script>
+        // Obtener todos los elementos de progreso
+        let elementosProgreso = document.querySelectorAll('.progress-container');
+
+        // Iterar sobre cada elemento de progreso
+        elementosProgreso.forEach((elemento, index) => {
+            elemento.style.margin = 'auto';
+            // Obtener el valor numérico desde el elemento <td>
+            let valor = parseInt(elemento.querySelector('.progress-value').innerText.trim());
+
+            // Obtener el elemento de la barra de progreso y establecer su ancho
+            let progressBar = elemento.querySelector('.progress-bar');
+            progressBar.style.width = valor + '%';
+
+            // Actualizar el valor dentro del div
+            let valueDiv = elemento.querySelector('.progress-value');
+            valueDiv.innerText = valor + '%';
+        });
+    </script>
+    <!-- Insertar resultados seleccion multiple -->
+    <script>
+        function actualizarContenedores_sm(resultados_sm) {
+            // Variables para almacenar el conteo de cada tipo
+            var n_correctas = 0;
+            var n_incorrectas = 0;
+            var n_omitidas = 0;
+
+            // Iterar sobre cada elemento en el JSON
+            resultados_sm.forEach(function(item) {
+                // Obtener el número de ítem y el resultado de la expresión
+                var itemNum = item.item_num;
+                var resultado = item.resultado;
+
+                // Incrementar el conteo correspondiente según el resultado
+                switch(resultado) {
+                    case "Correcta":
+                        n_correctas++;
+                        break;
+                    case "Incorrecta":
+                        n_incorrectas++;
+                        break;
+                    case "Omitida":
+                        n_omitidas++;
+                        break;
+                    default:
+                        // No hacer nada si el resultado no es reconocido
+                        break;
+                }
+
+                // Seleccionar el contenedor correspondiente basado en el resultado
+                var contenedor;
+                switch(resultado) {
+                    case 'Correcta':
+                        contenedor = document.getElementById('flush-collapseOne');
+                        break;
+                    case 'Incorrecta':
+                        contenedor = document.getElementById('flush-collapseTwo');
+                        break;
+                    case 'Omitida':
+                        contenedor = document.getElementById('flush-collapseThree');
+                        break;
+                    default:
+                        contenedor = null;
+                }
+
+                // Si se encuentra un contenedor, actualizar su contenido
+                if (contenedor) {
+                    var tabla = contenedor.querySelector('tbody');
+                    if (tabla) {
+                        tabla.innerHTML += '<tr><td>' + itemNum + '</td><td>' + resultado + '</td></tr>';
+                    }
+                }
+
+                // Insertar conteos
+                var n_correctasDiv = document.getElementById('n_correctas');
+                var n_incorrectasDiv = document.getElementById('n_incorrectas');
+                var n_omitidasDiv = document.getElementById('n_omitidas');
+                
+                n_correctasDiv.textContent = n_correctas;
+                n_incorrectasDiv.textContent = n_incorrectas;
+                n_omitidasDiv.textContent = n_omitidas;
+
+
+            });
+        }
+
+        // Llamar a la función para actualizar los contenedores y obtener el conteo
+        actualizarContenedores_sm(resultados_sm);
+    </script>
+    <!-- Insertar resultados rubrica -->
+    <script>
+        function actualizarContenedores_ru(resultados_ru) {
+
+            // Seleccionar la tabla por su id
+            var table = document.getElementById('tabla_ru');
+
+            // Seleccionar el cuerpo de la tabla
+            var tbody = table.querySelector('tbody');
+
+            // Limpiar el cuerpo de la tabla antes de agregar nuevos datos
+            tbody.innerHTML = '';
+
+            // Iterar sobre cada elemento en el JSON
+            resultados_ru.forEach(function(item) {
+                // Crear una nueva fila para la tabla
+                var row = document.createElement('tr');
+
+                // Crear celdas para la fila
+                var numCell = document.createElement('td');
+                numCell.textContent = item.item_num;
+
+                var aspectoCell = document.createElement('td');
+                aspectoCell.textContent = item.item_nombre;
+                aspectoCell.style.textAlign = 'left';
+
+                var evaluacionCell = document.createElement('td');
+                evaluacionCell.textContent = item.nivel_descripcion;
+
+                var puntajeAsignadoCell = document.createElement('td');
+                puntajeAsignadoCell.textContent = item.puntaje_asignado;
+
+                var puntajeTotalCell = document.createElement('td');
+                puntajeTotalCell.textContent = item.item_puntaje;
+
+                // Agregar las celdas a la fila
+                row.appendChild(numCell);
+                row.appendChild(aspectoCell);
+                row.appendChild(evaluacionCell);
+                row.appendChild(puntajeAsignadoCell);
+                row.appendChild(puntajeTotalCell);
+
+                // Agregar la fila al cuerpo de la tabla
+                tbody.appendChild(row);
+            });
+        }
+
+        actualizarContenedores_ru(resultados_ru);
+    </script>
+    <!-- Insertar resultados desarrollo -->
+    <script>
+        function actualizarContenedores_de(resultados_de) {
+
+            // Seleccionar la tabla por su id
+            var table = document.getElementById('tabla_de');
+
+            // Seleccionar el cuerpo de la tabla
+            var tbody = table.querySelector('tbody');
+
+            // Limpiar el cuerpo de la tabla antes de agregar nuevos datos
+            tbody.innerHTML = '';
+
+            // Iterar sobre cada elemento en el JSON
+            resultados_de.forEach(function(item) {
+                // Crear una nueva fila para la tabla
+                var row = document.createElement('tr');
+
+                // Crear celdas para la fila
+                var itemNumCell = document.createElement('td');
+                itemNumCell.textContent = item.item_num;
+
+                var logroAlumnoCell = document.createElement('td');
+                logroAlumnoCell.textContent = ((item.puntaje_alum / item.item_puntaje) * 100).toFixed(1) + '%';
+                logroAlumnoCell.style.textAlign = 'center';
+
+                var puntajeAlumnoCell = document.createElement('td');
+                puntajeAlumnoCell.textContent = item.puntaje_alum;
+                puntajeAlumnoCell.style.textAlign = 'center';
+
+                var itemPuntajeCell = document.createElement('td');
+                itemPuntajeCell.textContent = item.item_puntaje;
+                itemPuntajeCell.style.textAlign = 'center';
+
+
+                // Agregar las celdas a la fila
+                row.appendChild(itemNumCell);
+                row.appendChild(logroAlumnoCell);
+                row.appendChild(puntajeAlumnoCell);
+                row.appendChild(itemPuntajeCell);
+
+                // Agregar la fila al cuerpo de la tabla
+                tbody.appendChild(row);
+            });
+        }
+
+        actualizarContenedores_de(resultados_de);
+    </script>
+
+</html>
+
