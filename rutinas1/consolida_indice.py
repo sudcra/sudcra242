@@ -11,14 +11,14 @@ columnsdf=["ANO","SEMESTRE","SEDE","INSTITUCION","SALIDA INTERMEDIA","VERIFICACI
 
 # Abre la hoja de Excel
 # Obtener la lista de archivos en el directorio
-files = os.listdir("C:\\sudcraultra_access\\datos_sap\\indice")
+files = os.listdir("C:\\Users\\lgutierrez\\OneDrive - Fundacion Instituto Profesional Duoc UC\\SUDCRA\\INDICE\\2025-03-05")
 df2 = pd.DataFrame()
 # Filtrar los archivos Excel
-excel_files = [file for file in files if file.endswith(".XLS")]
+excel_files = [file for file in files if file.endswith(".xls")]
 
 # Recorrer los archivos Excel
 for file in excel_files:
-    pathfile= "C:\\sudcraultra_access\\datos_sap\\indice\\" + file
+    pathfile= "C:\\Users\\lgutierrez\\OneDrive - Fundacion Instituto Profesional Duoc UC\\SUDCRA\\INDICE\\2025-03-05\\" + file
     print(pathfile)
     df = pd.read_excel(pathfile, skiprows=1)   
     df2 = pd.concat([df2,df])
@@ -29,7 +29,7 @@ df2.rename(columns={'AÑO PSU': 'ANO PSU'}, inplace=True)
 
 df2=df2[columnsdf]
 
-df2.to_csv('C:\\sudcraultra_access\\datos_sap\\INDICE.csv', index=False, sep=";", encoding='utf-8-sig')
+df2.to_csv('C:\\Users\\lgutierrez\\OneDrive - Fundacion Instituto Profesional Duoc UC\\SUDCRA\\INDICE\\INDICE05032025.csv', index=False, sep=";", encoding='utf-8-sig')
 
 
  #df = pd.read_excel("my_sheet.xlsx", skiprows=1)

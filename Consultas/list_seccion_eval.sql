@@ -2,7 +2,7 @@ select --*
 	asig.programa
 	,asig.asig
 	,e.nombre_prueba
-	,e.num_prueba
+	,CAST(RIGHT(e.num_prueba::TEXT, 2) AS INTEGER) AS num_prueba
 	,co.lectura_fecha
 	,s.seccion
 	,doc.nombre_doc || ' ' || doc.apellidos_doc as docente

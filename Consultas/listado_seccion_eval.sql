@@ -36,12 +36,7 @@ SELECT
 	calificaciones.nota,
 	calificaciones_obtenidas.logro_obtenido,
 	calificaciones.condicion,
-	case when
-		matricula_eval.imagen != ''
-		then 'https://duoccl0.sharepoint.com/sites/SUDCRA2/Lists/imgenes20242/Attachments/' || (string_to_array(matricula_eval.imagen, '_'))[1] || '/' || RIGHT(matricula_eval.imagen, LENGTH(matricula_eval.imagen) - LENGTH((string_to_array(matricula_eval.imagen, '_'))[1])-1)
-		else ''
-	END as imagen,
-	 
+	imagenes.url_imagen as imagen,
     listado_alumnos_pendientes.id_seccion,
     listado_alumnos_pendientes.id_matricula,
     listado_alumnos_pendientes.id_eval,

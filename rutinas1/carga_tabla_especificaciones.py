@@ -16,7 +16,7 @@ def cargaTablaEspecificaciones(ruta):
         prueba = respuesta[1]
         nombre_hoja="medidas"
         df = convertir_a_df_tipo_0(ruta, nombre_hoja)
-
+        print(df)
         agregar_registros(df,nombre_hoja,[])
 
         nombre_hoja="escala"

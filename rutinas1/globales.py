@@ -1,1 +1,1 @@
-globalperiodo = '2024002'
+globalperiodo = '2025001'

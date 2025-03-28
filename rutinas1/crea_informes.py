@@ -25,7 +25,7 @@ def crearinformes():
             
             
             if row.num_prueba == 0:
-                medida="UC"      
+                medida="AE"      
             else:
                 medida="AE"     
             archivo = open(path_base + 'listado_seccion_eval.sql', "r")

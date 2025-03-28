@@ -5,7 +5,7 @@ join matricula_eval on matricula_eval.id_eval = calificaciones.id_eval
 
 WHERE calificaciones_obtenidas.id_calificacion is NULL AND
 matricula_eval.id_matricula_eval =calificaciones_obtenidas.id_matricula_eval AND
-case when num_prueba = 0 then
+case when num_prueba = -1 then
 
 calificaciones_obtenidas.convalida=calificaciones.nota
 else
