@@ -5,7 +5,7 @@ from lee_no_ident import leelogforms
 from lee_lista_sharepoint import imagenes_list
 from lee_no_ident import leelogforms
 from leeExcel import xls_a_df, xlsnew_a_df
-from lee_ava import xlsava_a_df
+from lee_ava import xlsava_a_df,crear_dataframe_desde_excel
 import openpyxl
 from openpyxl import load_workbook
 import os
@@ -38,13 +38,15 @@ def leerarchivos():
                 if extension == '.txt':
                     df = txt_a_df(ruta_archivo, globales.globalperiodo, str(id_archivo))
                 elif extension == '.xlsx' or extension == '.xlsm':
-                    df_temp = pd.read_excel(ruta_archivo, nrows=1, usecols="A")
+                    df_temp = pd.read_excel(ruta_archivo, nrows=1, usecols="A:B")
 
                     # Verificar si la celda A1 contiene "Nombre de usuario"
                     if df_temp.columns[0] == "Nombre de usuario":
                         ava = 1
                     elif df_temp.columns[0] == "newplanilla":    
                         df = xlsnew_a_df(ruta_archivo, str(id_archivo)) 
+                    elif   df_temp.columns[1] == "course_name":
+                        df= crear_dataframe_desde_excel(ruta_archivo, str(id_archivo)) 
                     else:
                         df = xls_a_df(ruta_archivo, globales.globalperiodo , str(id_archivo))
                 
@@ -68,6 +70,8 @@ def leerarchivos():
                 if ava == 1:
                     tabla = "lectura_avatemp"
                     #df.to_excel('verifica.xlsx', index=False) 
+                    #nombre_archivo_txt = 'mi_dataframe.txt'
+                    #df.to_csv(nombre_archivo_txt, sep='\t', index=False)
                     agregar_registros(df,tabla,[])
                 else:
                     tabla = "lectura_temp"

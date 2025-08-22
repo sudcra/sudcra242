@@ -169,7 +169,7 @@ def mailerror(docente,mail_docente,  evaluacion,seccion, imagen, link, eimag, ru
     return mensaje
 
 if __name__ == "__main__":
-    #print(mailalum('Ronny Godoy', 'lgutierrez@duoc.cl', 'leandro Gutiérrez', 'leander.guty@gmail.com', 'Diagnóstico', '15504151863039032024001.PLC1101-2024001-0.html', 'Nivelación Matemática', 'MAT1111-006V', 'Antonio Varas'))
+    print(mailalum('Ronny Godoy', 'lgutierrez@duoc.cl', 'Cristobal Pino', 'lgutierrez@duoc.cl', 'Diagnóstico', '15501152070752802025002.MAT1130-2025002-0.html', 'Nivelación Matemática', 'MAT1111-006V', 'Antonio Varas'))
     #print(maildoc("Ricardo Leal", "lgutierrez@duoc.cl","Diagnóstico","MAT1111-2024001-0_24086890.html","MAT1111-023D", "Programa de matemática"))
-    print(maildoc("Leandro Gutiérrez", "lgutierrez@duoc.cl","Diagnóstico","MAT1130-2024002-1_24249523.html","MAT1111-023D", "Programa de matemática","MAT1130-2024002-1_24249523.pptx"))
+    #print(maildoc("Leandro Gutiérrez", "C.ARAYAI@PROFESOR.DUOC.CL","Prueba 1","MAT1111-2025001-1_24283092.html","MAT1111-023D", "Programa de matemática","MAT1111-2025001-1_24283092.pptx"))
     #print(mailerror('Katherinnehelen Mondaca Villalon', "lgutierrez@duoc.cl","Diagnóstico", "MAT1111-052V", 'Scan_0039.jpg', "https://duoccl0.sharepoint.com/sites/SUDCRA2/Lists/imgenes/Attachments/25/Scan_0039.jpg", 'OK', '262106390','El rut registrado no es válido', '3','no está inscrito', '0' , 'Ok', '1', 'Ok', 'un error de lectura o de identificación.') )

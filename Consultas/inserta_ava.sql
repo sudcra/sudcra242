@@ -1,8 +1,10 @@
 update lectura_avatemp set registrom = NULL
 where registrom = 'NaN';
---parche error MAT4121 prueba 1********************************
---update lectura_avatemp set id_item = '510103006'
---where id_item = '93';
+--parche error MAT1130 diag 2025-2********************************
+	update lectura_avatemp set id_item = '1160006'||right(id_item ,3)
+	where left(id_item ,7 ) = '1160016';
+	update lectura_avatemp set id_item = '1160005'||right(id_item ,3)
+	where left(id_item ,7 ) = '1160015';
 --parche error MAT4121 prueba 2********************************
 --update lectura_avatemp set id_item = '510201004'
 --where id_item = '';

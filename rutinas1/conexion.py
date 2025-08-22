@@ -23,7 +23,7 @@ def cierra_conexion(conn):
     try:
         if conn:
             conn.close()
-            print("Conexión cerrada correctamente.")
+            # print("Conexión cerrada correctamente.")
         else:
             print("No hay conexión para cerrar.")
     except psycopg2.Error as e:

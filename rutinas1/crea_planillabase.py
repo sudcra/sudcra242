@@ -106,36 +106,11 @@ def copiar_datos_a_excel(dfa, dfi, dfe, ruta_excel=r'C:\sudcraultra_access\SISTE
 
     
 if __name__ == "__main__":
-
-    
-    Planillabase('EMP1701',4)
+    Planillabase('MAI2121',2)
     
     
 
 
-    '''
-    Planillabase('MAT6121',12)
-    Planillabase('MAT2120',12)
-    Planillabase('INI5131',2)
-    Planillabase('INI1101',1)
-    Planillabase('INU1101',1)
-    Planillabase('INU2101',1)
-    Planillabase('INU3101',1)
-    Planillabase('INI3101',1)
-    Planillabase('INI1131',1)
-    Planillabase('INI3111',1)
-    Planillabase('PRI6100',1)
-    Planillabase('PRU6100',1)
-    Planillabase('INU4101',1)
-    Planillabase('INI9101',1)
-    Planillabase('INU5101',1)
-    Planillabase('INI5131',1)
-    Planillabase('INI7101',1)
-    Planillabase('INI5111',1)
-    Planillabase('INI5112',1)
-    Planillabase('INI5121',1)
-    Planillabase('INI7102',1)
-    Planillabase('INI7121',1)
-    Planillabase('INU3100',1)
-    Planillabase('INU6101',1)
-    '''
+    
+
+

@@ -177,18 +177,18 @@ if __name__ == "__main__":
     
    
 # MATEMÁTICA
-    if 1==2:
-        cod_asig='MAT6121'
+    if 1==0:
+        cod_asig='MAT6110'
         prueba=12
         ruta='C:/sudcraultra_access/SISTEMA/planillas_base/'
-        archivo=f'{cod_asig}-2024002-{prueba}.xlsm'
+        archivo=f'{cod_asig}-2025001-{prueba}.xlsm'
         rutaArchivo= ruta + archivo
-        carp = 'C:/Users/lgutierrez/Fundacion Instituto Profesional Duoc UC/Docentes Programa Matemática DUOC UC - PLANILLAS/MAT20242'
+        carp = 'C:/Users/lgutierrez/Fundacion Instituto Profesional Duoc UC/Docentes Programa Matemática DUOC UC - PLANILLAS/MAT20251'
         sufijo='ET'
         copiasPlanillas(rutaArchivo,cod_asig,carp,sufijo,"", 7,2)   
     
  # EMPRENDIMIENTO   
-    if 1==1 :
+    if 1==2 :
         cod_asig='EMP1701'
         prueba=4
         ruta='C:/sudcraultra_access/SISTEMA/planillas_base/'
@@ -211,23 +211,23 @@ if __name__ == "__main__":
 
 # LENGUAJE 
     if 1==2:
-        cod_asig='TIC1100'
+        cod_asig='ALI0010'
         prueba=4
         ruta='C:/sudcraultra_access/SISTEMA/planillas_base/'
-        archivo=f'{cod_asig}_{prueba}.xlsm'
+        archivo=f'{cod_asig}-2025001-{prueba}.xlsm'
         rutaArchivo= ruta + archivo
-        carp = 'C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/PLANILLAS/LEN20242'
+        carp = 'C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/PLANILLAS/LEN20251'
         sufijo='ET'
-        copiasPlanillas(rutaArchivo,cod_asig,carp,sufijo,"", 10,2)
+        copiasPlanillas(rutaArchivo,cod_asig,carp,sufijo,"", 7,2)  
 
 # INGLES 
     if 1==2:
-        cod_asig='INI5111'
+        cod_asig='PRU7100'
         prueba=1
         ruta='C:/sudcraultra_access/SISTEMA/planillas_base/'
-        archivo=f'{cod_asig}-2024002-{prueba}.xlsm'
+        archivo=f'{cod_asig}-2025001-{prueba}.xlsm'
         rutaArchivo= ruta + archivo
-        carp = 'C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/PLANILLAS/ING20242'
+        carp = 'C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/PLANILLAS/ING20251'
         sufijo='ET_ORAL'
         copiasPlanillas(rutaArchivo,cod_asig,carp,sufijo,"", 7,2)   
     

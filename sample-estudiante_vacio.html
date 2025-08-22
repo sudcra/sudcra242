@@ -2895,22 +2895,43 @@
                 
 
 
-                var tablaHtml = '<table><thead style="background: rgb(42, 75, 90); color: #fff;">' +
-                '<tr>' +
-                '<th style="width: 470px; color: #fff;">' + aprendizajes[0].nombre_tipo_medida2 + '</th>' +
-                '<th style="width: auto; color: #fff;">% de logro</th></tr></thead><tbody>';
+                var tablaHtml = '<table><thead style="background: rgb(42, 75, 90); color: #fff;">' ;
+                if (si_retro== '0.0'){
+                    var sicol = 0;
+                    tablaHtml += '<tr>' +
+                    '<th style="width: 470px; color: #fff;">' + aprendizajes[0].nombre_tipo_medida2 + '</th>' +
+                    '<th style="width: auto; color: #fff;">% de logro</th></tr></thead><tbody>';
+                }else{
+                    var sicol = 1;
+                    tablaHtml += '<tr>' +
+                    '<th style="width: 30px;">' + (si_retro !== '0.0' ? 'Retroalimentación' : '') + '</th>' +
+                    '<th style="width: 470px; color: #fff;">' + aprendizajes[0].nombre_tipo_medida2 + '</th>' +
+                    '<th style="width: auto; color: #fff;">% de logro</th></tr></thead><tbody>';    
+                }
+                 var colap = '';
 
                 descripcionIndicadores.forEach(indicador => {
                     if (indicador.url_retro !== '' && indicador.url_retro !== '0.0' && indicador.logro < 60) {
+                        if (sicol == 1){
+                            colap = '<td style="text-align: center;">' +
+                            '<a href="' + indicador.url_retro + '" class="icon-retro" target="_blank"><i class="fas fa-link fa-2x"></i></a>' +
+                            '</td>';
+                        }
                         tablaHtml += '<tr>' +
+                             colap +
                             '<td>' + indicador.descripcion_indicador + '</td>' +
                             '<td><div class="progress-container" id="progress-container-' + indicador.n + '"><div class="progress-bar" id="progress-bar-' + indicador.n + '"></div><div class="progress-value" id="progress-value-' + indicador.n + '">' + indicador.logro + '</div></div></td></tr>';
                     } else {
+                        if (sicol == 1){
+                            colap = '<td></td>';
+                        }
                         tablaHtml += '<tr>' +
+                            colap +
                             '<td>' + indicador.descripcion_indicador + '</td>' +
                             '<td><div class="progress-container" id="progress-container-' + indicador.n + '"><div class="progress-bar" id="progress-bar-' + indicador.n + '"></div><div class="progress-value" id="progress-value-' + indicador.n + '">' + indicador.logro + '</div></div></td></tr>';
                     }
                 });
+                
 
                 tablaHtml += '</tbody></table>';
     

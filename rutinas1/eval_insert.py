@@ -19,7 +19,7 @@ def hace_conexion():
             host="localhost",
             port="5432"
         )
-        print("Conexión establecida correctamente.")
+        # print("Conexión establecida correctamente.")
         return conn
     except psycopg2.Error as e:
         print(f"Error al establecer la conexión: {e}")
@@ -31,7 +31,7 @@ def cierra_conexion(conn):
     try:
         if conn:
             conn.close()
-            print("Conexión cerrada correctamente.")
+            # print("Conexión cerrada correctamente.")
         else:
             print("No hay conexión para cerrar.")
     except psycopg2.Error as e:
@@ -80,7 +80,7 @@ def inserta_eval(ruta):
             exigencia = campos_eval['exigencia']
             num_ppt = campos_eval['num_ppt']
             ponderacion = campos_eval['ponderacion']
-            tipo = campos_eval['tipo']
+            tipo = campos_eval['tipo_eval']
 
             consulta = "INSERT INTO eval (id_eval , cod_asig, ano, periodo, num_prueba, nombre_prueba, tiene_formas, retro_alum, retro_doc, ver_correctas, tiene_grupo, archivo_tabla, cargado_fecha, exigencia, num_ppt, ponderacion, tipo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             cursor.execute(consulta, (id_eval, cod_asig, ano, periodo, num_prueba, nombre_prueba, tiene_formas, retro_alum, retro_doc, ver_correctas, tiene_grupo, archivo_tabla, cargado_fecha, exigencia, num_ppt, ponderacion, tipo))
