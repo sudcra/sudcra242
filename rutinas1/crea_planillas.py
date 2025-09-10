@@ -177,14 +177,14 @@ if __name__ == "__main__":
     
    
 # MATEMÁTICA
-    if 1==0:
-        cod_asig='MAT6110'
-        prueba=12
+    if 1==1:
+        cod_asig='MAT3111'
+        prueba=1
         ruta='C:/sudcraultra_access/SISTEMA/planillas_base/'
-        archivo=f'{cod_asig}-2025001-{prueba}.xlsm'
+        archivo=f'{cod_asig}-2025002-{prueba}.xlsm'
         rutaArchivo= ruta + archivo
-        carp = 'C:/Users/lgutierrez/Fundacion Instituto Profesional Duoc UC/Docentes Programa Matemática DUOC UC - PLANILLAS/MAT20251'
-        sufijo='ET'
+        carp = 'C:/Users/lgutierrez/Fundacion Instituto Profesional Duoc UC/Docentes Programa Matemática DUOC UC - PLANILLAS/MAT20252'
+        sufijo='P1'
         copiasPlanillas(rutaArchivo,cod_asig,carp,sufijo,"", 7,2)   
     
  # EMPRENDIMIENTO   
@@ -210,14 +210,14 @@ if __name__ == "__main__":
 
 
 # LENGUAJE 
-    if 1==2:
-        cod_asig='ALI0010'
-        prueba=4
+    if 1==0:
+        cod_asig='PLC2110'
+        prueba=1
         ruta='C:/sudcraultra_access/SISTEMA/planillas_base/'
-        archivo=f'{cod_asig}-2025001-{prueba}.xlsm'
+        archivo=f'{cod_asig}-2025002-{prueba}.xlsm'
         rutaArchivo= ruta + archivo
-        carp = 'C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/PLANILLAS/LEN20251'
-        sufijo='ET'
+        carp = 'C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/PLANILLAS/LEN20252'
+        sufijo='EV1'
         copiasPlanillas(rutaArchivo,cod_asig,carp,sufijo,"", 7,2)  
 
 # INGLES 

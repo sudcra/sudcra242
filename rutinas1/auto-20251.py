@@ -69,7 +69,7 @@ def actualizacion_en_proceso():
 def dentro_de_ventana_actualizacion():
     """Retorna True si estamos dentro de la franja horaria"""
     now = datetime.now().time()
-    return now >= datetime.strptime("05:30", "%H:%M").time() and now < datetime.strptime("05:31", "%H:%M").time()
+    return now >= datetime.strptime("06:00", "%H:%M").time() and now < datetime.strptime("08:00", "%H:%M").time()
 
 class Handler(FileSystemEventHandler):
     @staticmethod
@@ -81,7 +81,7 @@ class Handler(FileSystemEventHandler):
 
         # Validar si está en horario de actualización
         if dentro_de_ventana_actualizacion():
-            print("⏳ Dentro de la franja horaria de actualización (05:30 - 05:31n). Esperando...")
+            print("⏳ Dentro de la franja horaria de actualización (23:00 - 01:00). Esperando...")
             return
 
         # Validar si hay una actualización en proceso

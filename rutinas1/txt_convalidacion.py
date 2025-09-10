@@ -9,7 +9,7 @@ date = today.strftime("%d-%m")
 #C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/reportes_sudcra/2025001/DARA
 path_base='C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/reportes_sudcra/2025001/DARA/'
 for index, row in df.iterrows():
-    ruta_archivo = f"C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/reportes_sudcra/2025001/DARA/" + row['nombre_dara'] + "_" + date +".txt"
+    ruta_archivo = f"C:/Users/lgutierrez/OneDrive - Fundacion Instituto Profesional Duoc UC/SUDCRA/reportes_sudcra/2025002/DARA/" + row['nombre_dara'] + "_" + date +".txt"
     with open(ruta_archivo, 'a') as m:
         logro = round(row['logro_obtenido']*100)
         if logro < 70:

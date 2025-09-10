@@ -11,7 +11,7 @@ from agrega_registros_252_inscripcion import sync_inscripcion
 ruta = obtener_ruta_archivo('C:')
 
 print('=========================================')
-print('     COMIENZA LA CARGA DE REGISTROS')
+print('  COMIENZA LA CARGA MANUAL DE REGISTROS  ')
 print('=========================================')
 
 nombre_hoja="alumnos"

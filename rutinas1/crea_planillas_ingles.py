@@ -17,7 +17,7 @@ import os
 # Parámetros globales
 ANIO = 2025
 PERIODO = '002'
-CARPETAONDRIVE = 'IMR20252'
+CARPETAONDRIVE = 'IMR20252' # MAT20252 - LEN20252 - IMR20252
 
 def copiasPlanillas(archivox, cod_asig, carpeta, sufijo, idseccion, fil , col):
     raiz, extension = os.path.splitext(archivox)

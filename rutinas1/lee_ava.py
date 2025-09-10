@@ -145,7 +145,7 @@ def crear_dataframe_desde_excel(ruta_archivo: str, id_archivoleido):
         id_pregunta = df_expandido['pregunta_acarreo_id'].astype(str)
         id_seleccion = df_expandido['seleccionadas'].astype(str)
         
-        df_expandido['id_itemresp'] = np.where(condicion_concat, id_pregunta + '_' + id_seleccion, id_pregunta)
+        df_expandido['id_itemresp'] = np.where(condicion_concat, id_pregunta +  id_seleccion, id_pregunta)
         
         df_expandido['puntaje_alum'] = np.where(
             df_expandido['nota_manual'].notna(), 
