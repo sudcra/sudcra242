@@ -106,12 +106,14 @@ def copiar_datos_a_excel(dfa, dfi, dfe, ruta_excel=r'C:\sudcraultra_access\SISTE
 
     
 if __name__ == "__main__":
-    #Planillabase('PLC1101',1)
-    Planillabase('MAT3110',1)
-    Planillabase('MAT3111',1)
-    #Planillabase('PLC2110',1)
     
+    Planillabase('MAT4111',11)
+    Planillabase('MAT4140',11)
+    Planillabase('MAT4141',11)
+    Planillabase('MAT4160',11)
+    Planillabase('MAT5130',2)
     
+
 
 
     

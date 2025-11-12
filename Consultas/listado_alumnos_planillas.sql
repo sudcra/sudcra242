@@ -6,4 +6,5 @@ join inscripcion i on i.id_seccion = s.id_seccion
 join matricula mt on mt.id_matricula=i.id_matricula
 join alumnos al on al.rut = mt.rut
 where s.id_seccion = [id_seccion]
+and i.vigente = true
 order by al.apellidos
